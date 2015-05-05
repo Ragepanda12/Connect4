@@ -34,6 +34,6 @@ input:taken in number of column(1-7)(is enter required?) or left right arrows an
 
 grid layout:7x6(7 columns 6 rows),graphically show grid and two colored tokens
 
-layout:grid and interface(left right or seperate) to choose game mode , play, pause, start new game button.
+layout:grid and interface(left right or seperate) to choose game mode , play/pause, start new game button.
 
 optional: time? score? graphical?(color options etc)
