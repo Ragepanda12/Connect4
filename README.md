@@ -36,4 +36,6 @@ grid layout:7x6(7 columns 6 rows),graphically show grid and two colored tokens
 
 layout:grid and interface(left right or seperate) to choose game mode , play/pause, start new game button.
 
+hints:hint for 1 player or 2 player or both modes? should access be un/limited?
+
 optional: time? score? graphical?(color options etc)
