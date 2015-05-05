@@ -38,6 +38,6 @@ layout:grid and interface(left right or seperate) to choose game mode , play/pau
 
 hints:hint for 1 player or 2 player or both modes? should access be un/limited?
 
-optional: time? score? graphical?(color options etc)
+optional: time?(taken or per turn) score? graphical?(color options etc)
 
 to think about: saving the state? (might be pretty hard)
