@@ -7,7 +7,7 @@ public class Board {
 	
 	//Constructor
 	public Board(){
-		//Columns containing rows
+      //Columns containing rows
 		int counter = 0;
 		int counterTwo = 0;
 		ArrayList<ArrayList<Spot>> Columns = new ArrayList<ArrayList<Spot>>();
