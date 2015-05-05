@@ -25,9 +25,15 @@ $ cd Connect4
 #### PSA: Use 4 space indents (NO TABS PLEASE)
 
 ####Features required:
+
 modes:1 player vs ai(difficulty if time allows), 2 player
+
 ai:development required
+
 input:taken in number of column(1-7)(is enter required?) or left right arrows and enter
+
 grid layout:7x6(7 columns 6 rows),graphically show grid and two colored tokens
+
 layout:grid and interface(left right or seperate) to choose game mode , play, pause, start new game button.
+
 optional: time? score? graphical?(color options etc)
