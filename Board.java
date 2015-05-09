@@ -9,24 +9,21 @@ public class Board {
 	
 	//Constructor
 	public Board(){
-		//Columns containing rows (Go across the top row of 7 and generate down 6 rows of 1
+		//Columns containing spots (Go across the top row of 7 and generate down 6 spots)
 		//Spots index start from the 'bottom' of the game board
-		int counter = 0;
-		int counterTwo = 0;
+		int columns = 0;
+		int spotsInColumn = 0;
 		ArrayList<ArrayList<Spot>> Columns = new ArrayList<ArrayList<Spot>>();
-		System.out.println("Generating Board...");
-		while(counterTwo < 7){
+		while(columns < 7){
 			ArrayList<Spot> Row = new ArrayList<Spot>();
-			while(counter < 6){
-				System.out.print("Blank ");
+			while(spotsInColumn < 6){
 				Spot s = new Spot();
 				Row.add(s);
-				counter ++;
+				spotsInColumn ++;
 			}
-			System.out.println();
-			counter = 0;
+			spotsInColumn = 0;
 			Columns.add(Row);
-			counterTwo ++;
+			columns ++;
 		}
 		this.board = Columns;
 		this.columns = Columns.size();
@@ -46,23 +43,27 @@ public class Board {
 		System.out.println("Printing board...");
 		int row = 0;
 		int column = 0;
-		while(column < this.columns){
-			while(row < this.rows){
-			System.out.print(this.board.get(column).get(row).getState() + " ");
-			row ++;
+		ArrayList<Spot> rowOfSpots = new ArrayList<Spot>();
+		while(row < this.getRows()){
+			while(column < this.getColumns()){
+				rowOfSpots.add(board.get(column).get(row));
+				column ++;
 			}
-			row = 0;
-			column ++;
+			for (Spot s : rowOfSpots){
+				System.out.print(s.getState() + " ");
+			}
 			System.out.println();
+			rowOfSpots.clear();
+			row ++;
+			column = 0;
 		}
-		System.out.println();
 	}
 	public boolean addPiece(Player p, int column){
 		boolean addSuccess = false;
 		ArrayList<Spot> columnToAdd = this.board.get(column);
-		int index = 0;
-		while(!(columnToAdd.get(index).getState().equals("Blank")) && index < 6){
-			index ++;
+		int index = this.getRows() - 1;
+		while(!(columnToAdd.get(index).getState().equals("Blank")) && index > 0){
+			index --;
 		}
 		if(columnToAdd.get(index).getState().equals("Blank")){
 			addSuccess = true;
@@ -134,6 +135,7 @@ public class Board {
 		return hasConnectFour;
 	}
 	//This one is complicated.
+	//TODO
 	public boolean hasDiagConnectFour(Player p){
 		boolean hasConnectFour = false;
 		

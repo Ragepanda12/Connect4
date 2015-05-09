@@ -31,7 +31,7 @@ public class Game {
 			System.out.println("Please enter the column you want to put a piece in.");
 
 			int column = scanner.nextInt() - 1;
-			boolean successMove = gameBoard.addPiece(currentPlayer, this.gameBoard.getColumns() - column - 1);
+			boolean successMove = gameBoard.addPiece(currentPlayer, column);
 			if(successMove){
 				if(player == 0){
 					player ++;
