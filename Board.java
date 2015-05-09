@@ -88,9 +88,9 @@ public class Board {
 		if(!hasConnectFour){
 			hasConnectFour = hasHoriConnectFour(p, s);
 		}
-		/*if(!hasConnectFour){
+		if(!hasConnectFour){
 			hasConnectFour = hasDiagConnectFour(p, s);
-		}*/
+		}
 		return hasConnectFour;
 	}
 	public boolean hasVertConnectFour(Player p, Spot s){
@@ -136,16 +136,51 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
-	//This one is complicated.
+	//This one is complicated. Still not working atm.
 	//TODO
-	/*private boolean hasDiagConnectFour(Player p, Spot s){
+	private boolean hasDiagConnectFour(Player p, Spot s){
 		boolean hasConnectFour = false;
-		for(ArrayList<Spot> column : this.board){
-			for(Spot s : column){
-				if
+		int connected = 0;
+		int numChecked = 0;
+		int yCoord = s.getX();
+		int xCoord = s.getY();
+		if(yCoord > xCoord){
+			yCoord -= xCoord;
+			xCoord = 0;
+		}
+		else if(xCoord < yCoord){
+			xCoord -= yCoord;
+			yCoord = 0;
+		}
+		else{
+			xCoord = 0;
+			yCoord= 0;
+		}
+		int xOrigin = xCoord;
+		int yOrigin = yCoord;
+		while(yCoord < getRows() && xCoord < getColumns()){
+			numChecked ++;
+			if(this.board.get(yCoord).get(xCoord).equals(p.getColor())){
+				connected ++;
 			}
+			else{
+				connected = 0;
+			}
+			if(numChecked > 4){
+				if(this.board.get(yOrigin).get(xOrigin).equals(p.getColor())){
+					connected --;
+				}
+				xOrigin ++;
+				yOrigin ++;
+			}
+			if(connected >= 4){
+				hasConnectFour = true;
+				break;
+			}
+			yCoord ++;
+			xCoord ++;
 		}
 		return hasConnectFour;
-	}*/
+	}
 	
 }
