@@ -31,15 +31,15 @@ public class Game {
 			System.out.println("Please enter the column you want to put a piece in.");
 
 			int column = scanner.nextInt() - 1;
-			boolean successMove = gameBoard.addPiece(currentPlayer, column);
-			if(successMove){
+			Spot successMove = gameBoard.addPiece(currentPlayer, column);
+			if(successMove != null){
 				if(player == 0){
 					player ++;
 				}
 				else{
 					player --;
 				}
-				if(this.gameBoard.hasConnectFour(currentPlayer)){
+				if(this.gameBoard.hasConnectFour(currentPlayer, successMove)){
 					scanner.close();
 					break;
 				}

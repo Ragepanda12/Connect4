@@ -10,14 +10,14 @@ public class Board {
 	//Constructor
 	public Board(){
 		//Columns containing spots (Go across the top row of 7 and generate down 6 spots)
-		//Spots index start from the 'bottom' of the game board
+		//Spots index start from the 'top' of the game board, but is reversed in the addPiece function for printing functionality.
 		int columns = 0;
 		int spotsInColumn = 0;
 		ArrayList<ArrayList<Spot>> Columns = new ArrayList<ArrayList<Spot>>();
 		while(columns < 7){
 			ArrayList<Spot> Row = new ArrayList<Spot>();
 			while(spotsInColumn < 6){
-				Spot s = new Spot();
+				Spot s = new Spot(columns, spotsInColumn);
 				Row.add(s);
 				spotsInColumn ++;
 			}
@@ -39,6 +39,12 @@ public class Board {
 	public int getRows(){
 		return this.rows;
 	}
+	public int getRowsIndex(){
+		return this.rows - 1;
+	}
+	public int getColumnsIndex(){
+		return this.rows - 1;
+	}
 	public void printBoard(){
 		System.out.println("Printing board...");
 		int row = 0;
@@ -50,7 +56,7 @@ public class Board {
 				column ++;
 			}
 			for (Spot s : rowOfSpots){
-				System.out.print(s.getState() + " ");
+				System.out.print(s.getStateShort() + " ");
 			}
 			System.out.println();
 			rowOfSpots.clear();
@@ -58,87 +64,88 @@ public class Board {
 			column = 0;
 		}
 	}
-	public boolean addPiece(Player p, int column){
-		boolean addSuccess = false;
+	public Spot addPiece(Player p, int column){
+		Spot toReturn = null;
 		ArrayList<Spot> columnToAdd = this.board.get(column);
-		int index = this.getRows() - 1;
+		int index = this.getRowsIndex();
 		while(!(columnToAdd.get(index).getState().equals("Blank")) && index > 0){
 			index --;
 		}
-		if(columnToAdd.get(index).getState().equals("Blank")){
-			addSuccess = true;
-			columnToAdd.get(index).changeState(p.getColor());
+		if(index > 0){
+			if(columnToAdd.get(index).getState().equals("Blank")){
+				toReturn = columnToAdd.get(index);
+				columnToAdd.get(index).changeState(p.getColor());
+			}
 		}
-		return addSuccess;
+		return toReturn;
 	}
-	public boolean hasConnectFour(Player p){
+	//Only check for connect4 after someone has played a move.
+	public boolean hasConnectFour(Player p, Spot s){
 		boolean hasConnectFour = false;
 		if(!hasConnectFour){
-			hasConnectFour = hasVertConnectFour(p);
+			hasConnectFour = hasVertConnectFour(p, s);
 		}
 		if(!hasConnectFour){
-			hasConnectFour = hasHoriConnectFour(p);
+			hasConnectFour = hasHoriConnectFour(p, s);
 		}
-		if(!hasConnectFour){
-			hasConnectFour = hasDiagConnectFour(p);
-		}
+		/*if(!hasConnectFour){
+			hasConnectFour = hasDiagConnectFour(p, s);
+		}*/
 		return hasConnectFour;
 	}
-	public boolean hasVertConnectFour(Player p){
+	public boolean hasVertConnectFour(Player p, Spot s){
 		boolean hasConnectFour = false;
 		String type = p.getColor();
-		for(ArrayList<Spot> a : this.board){
-			int index = 0;
-			int connected = 0;
-			while(index < getRows()){
-				if(a.get(index).getState().equals(type)){
-					connected ++;
-					if(connected >= 4){
-						hasConnectFour = true;
-						break;
-					}
+		int index = 0;
+		int connected = 0;
+		while(index < getRows()){
+			if(this.board.get(s.getX()).get(index).getState().equals(type)){
+				connected ++;
+				if(connected >= 4){
+					hasConnectFour = true;
+					break;
 				}
-				else{
-					connected = 0;
-				}
-				index ++;
 			}
-			if(hasConnectFour){
-				break;
+			else{
+				connected = 0;
 			}
+			index ++;
 		}
 		if(hasConnectFour){
 			System.out.print("vertical win");
 		}
 		return hasConnectFour;
 	}
-	public boolean hasHoriConnectFour(Player p){
+	private boolean hasHoriConnectFour(Player p, Spot s){
 		boolean hasConnectFour = false;
 		String type = p.getColor();
 		int index = 0;
 		int connected = 0;
-		while(index < this.getRows()){
-			for(ArrayList<Spot> a : this.board){
-				if(a.get(index).getState().equals(type)){
-					connected ++;
-					if(connected >= 4){
-						hasConnectFour = true;
-						break;
-					}
+		while(index < this.getColumns()){
+			if(this.board.get(index).get(s.getY()).getState().equals(type)){
+				connected ++;
+				if(connected >= 4){
+					hasConnectFour = true;
+					break;
 				}
 			}
+			else{
+				connected = 0;
+			}
 			index ++;
-		}
-		if(hasConnectFour){
-			System.out.println("Hi");
 		}
 		return hasConnectFour;
 	}
 	//This one is complicated.
 	//TODO
-	public boolean hasDiagConnectFour(Player p){
+	/*private boolean hasDiagConnectFour(Player p, Spot s){
 		boolean hasConnectFour = false;
-		
+		for(ArrayList<Spot> column : this.board){
+			for(Spot s : column){
+				if
+			}
+		}
 		return hasConnectFour;
-	}
+	}*/
+	
 }
