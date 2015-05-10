@@ -93,54 +93,58 @@ public class Board {
 	public ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		//this.board[s.getY()][s.getX()];
-		int yPos = s.getY() - 3;
-		int toYPos = s.getY() + 3;
+		int yPos = s.getX() - 3;
+		int toYPos = s.getX() + 3;
+		boolean alreadyHasConnectFour = false;
 		if(yPos < 0){
 			yPos = 0;
 		}
 		if(toYPos > getRowsIndex()){
 			toYPos = getRowsIndex();
 		}
-		int connected = 0;
 		while(yPos <= toYPos){
-			if(this.board[yPos][s.getX()].getState().equals(p.getColor())){
-				connected ++;
+			if(this.board[s.getY()][yPos].getState().equals(p.getColor())){
+				hasConnectFour.add(this.board[s.getY()][yPos]);
+				alreadyHasConnectFour = true;
 			}
 			else{
-				connected = 0;
+				if(!alreadyHasConnectFour){
+					hasConnectFour.clear();
+				}
+				else{
+					break;
+				}
 			}
 			yPos ++;
-		}
-		if (connected >= 4){
-			hasConnectFour.add(new Spot(1,1));
-			hasConnectFour.add(new Spot(1,1));
-			hasConnectFour.add(new Spot(1,1));
-			hasConnectFour.add(new Spot(1,1));
-			
 		}
 		return hasConnectFour;
 	}
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int searchFrom = s.getY() - 3;
-		int searchUntil = s.getY() + 3;
-		if(searchFrom < 0){
-			searchFrom = 0;
+		//this.board[s.getY()][s.getX()];
+		int xPos = s.getY() - 3;
+		int toXPos = s.getY() + 3;
+		boolean alreadyHasConnectFour = false;
+		if(xPos < 0){
+			xPos = 0;
 		}
-		if(searchUntil > getColumnsIndex()){
-			searchUntil = getColumnsIndex();
+		if(toXPos > getColumnsIndex()){
+			toXPos = getColumnsIndex();
 		}
-		while(searchFrom != searchUntil){
-			if(this.board[s.getY()][searchFrom].getState().equals(p.getColor())){
-				hasConnectFour.add(this.board[s.getY()][searchFrom]);
+		while(xPos <= toXPos){
+			if(this.board[xPos][s.getX()].getState().equals(p.getColor())){
+				hasConnectFour.add(this.board[xPos][s.getX()]);
+				alreadyHasConnectFour = true;
 			}
 			else{
-				hasConnectFour.clear();
+				if(!alreadyHasConnectFour){
+					hasConnectFour.clear();
+				}
+				else{
+					break;
+				}
 			}
-			if(hasConnectFour.size() >= 4){
-				break;
-			}
-			searchFrom ++;
+			xPos ++;
 		}
 		return hasConnectFour;
 	}
