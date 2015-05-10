@@ -10,12 +10,13 @@ public class Board {
 	//Constructor
 	public Board(int column, int rows){
 		//2d array stores the board, (0,0) is in the top left
+		//Coord of a spot is this.board[toReturn.getY()][toReturn.getX()]
 		this.board = new Spot[column][rows];
 		int columns = 0;
 		int spot = 0;
 		while (columns < column){
 			while(spot < rows){
-				Spot s = new Spot(columns, spot);
+				Spot s = new Spot(spot, columns);
 				this.board[columns][spot] = s;
 				spot ++;
 			}
@@ -51,7 +52,7 @@ public class Board {
 		int column = 0;
 		while(column < getColumns()){	
 			while(spot < getRows()){
-				System.out.print(this.board[column][spot].getState() + " ");
+				System.out.print(this.board[column][spot].getStateShort() + " ");
 				spot ++;
 			}
 			spot = 0;
@@ -89,26 +90,7 @@ public class Board {
 	}
 	public ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int searchFrom = s.getX() - 3;
-		int searchUntil = s.getX() + 3;
-		if(searchFrom < 0){
-			searchFrom = 0;
-		}
-		if(searchUntil > getRowsIndex()){
-			searchUntil = getRowsIndex();
-		}
-		while(searchFrom != searchUntil){
-			if(this.board[searchFrom][s.getX()].getState().equals(p.getColor())){
-				hasConnectFour.add(this.board[searchFrom][s.getX()]);
-			}
-			else{
-				hasConnectFour.clear();
-			}
-			if(hasConnectFour.size() >= 4){
-				break;
-			}
-			searchFrom ++;
-		}
+		
 		return hasConnectFour;
 	}
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
