@@ -24,6 +24,7 @@ public class Board {
 			columns ++;
 
 		}
+		//Yes.
 		this.columns = column;
 		this.rows = rows;
 	}
@@ -50,23 +51,24 @@ public class Board {
 		System.out.println("Printing board...");
 		int spot = 0;
 		int column = 0;
-		while(column < getColumns()){	
-			while(spot < getRows()){
+
+		while(spot <= getRowsIndex()){
+			while(column <= getColumnsIndex()){	
 				System.out.print(this.board[column][spot].getStateShort() + " ");
-				spot ++;
+				column ++;
 			}
-			spot = 0;
+			column = 0;
 			System.out.println();
-			column ++;
+			spot ++;
 		}
 	}
 	public Spot addPiece(Player p, int column){
 		Spot toReturn = null;
-		int spot = getColumnsIndex();
-		while(spot >= 0){
-			if(this.board[spot][column].getState().equals("Blank")){
-				this.board[spot][column].changeState(p.getColor());
-				toReturn = this.board[spot][column];
+		int spot = getRowsIndex();
+		while(spot >= 0 ){
+			if(this.board[column][spot].getState().equals("Blank")){
+				this.board[column][spot].changeState(p.getColor());
+				toReturn = this.board[column][spot];
 				break;
 			}
 			spot --;
@@ -83,76 +85,114 @@ public class Board {
 		if(hasConnectFour.size() < 4){
 			hasConnectFour = hasHoriConnectFour(p, s);
 		}
-		/*if(hasConnectFour.size() < 4){
+		if(hasConnectFour.size() < 4){
 			hasConnectFour = hasDiagConnectFour(p, s);
-		}*/
+		}
 		return hasConnectFour;
 	}
 	public ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		
+		//this.board[s.getY()][s.getX()];
+		int yPos = s.getX() - 3;
+		int toYPos = s.getX() + 3;
+		boolean alreadyHasConnectFour = false;
+		if(yPos < 0){
+			yPos = 0;
+		}
+		if(toYPos > getRowsIndex()){
+			toYPos = getRowsIndex();
+		}
+		while(yPos <= toYPos){
+			if(this.board[s.getY()][yPos].getState().equals(p.getColor())){
+				hasConnectFour.add(this.board[s.getY()][yPos]);
+				alreadyHasConnectFour = true;
+			}
+			else{
+				if(!alreadyHasConnectFour){
+					hasConnectFour.clear();
+				}
+				else{
+					break;
+				}
+			}
+			yPos ++;
+		}
 		return hasConnectFour;
 	}
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int searchFrom = s.getY() - 3;
-		int searchUntil = s.getY() + 3;
-		if(searchFrom < 0){
-			searchFrom = 0;
+		//this.board[s.getY()][s.getX()];
+		int xPos = s.getY() - 3;
+		int toXPos = s.getY() + 3;
+		boolean alreadyHasConnectFour = false;
+		if(xPos < 0){
+			xPos = 0;
 		}
-		if(searchUntil > getColumnsIndex()){
-			searchUntil = getColumnsIndex();
+		if(toXPos > getColumnsIndex()){
+			toXPos = getColumnsIndex();
 		}
-		while(searchFrom != searchUntil){
-			if(this.board[s.getY()][searchFrom].getState().equals(p.getColor())){
-				hasConnectFour.add(this.board[s.getY()][searchFrom]);
+		while(xPos <= toXPos){
+			if(this.board[xPos][s.getX()].getState().equals(p.getColor())){
+				hasConnectFour.add(this.board[xPos][s.getX()]);
+				if(hasConnectFour.size() >= 4){
+					alreadyHasConnectFour = true;
+				}
 			}
 			else{
-				hasConnectFour.clear();
+				if(!alreadyHasConnectFour){
+					hasConnectFour.clear();
+				}
+				else{
+					break;
+				}
 			}
-			if(hasConnectFour.size() >= 4){
-				break;
-			}
-			searchFrom ++;
+			xPos ++;
 		}
 		return hasConnectFour;
 	}
-	/*
+	
 	//This one is complicated. Still not working atm.
 	//TODO
 	private ArrayList<Spot> hasDiagConnectFour(Player p, Spot s){
-		//Left to right down checking
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int connected = 0;
-		int yCoord = s.getX();
-		int xCoord = s.getY();
-		if(yCoord > xCoord){
-			yCoord -= xCoord;
-			xCoord = 0;
+		int yPos = s.getY();
+		int xPos = s.getX();
+		boolean alreadyHasConnectFour = false;
+		while(xPos > 0 && yPos > 0){
+			xPos --;
+			yPos --;
 		}
-		else if(xCoord < yCoord){
-			xCoord -= yCoord;
-			yCoord = 0;
-		}
-		else{
-			xCoord = 0;
-			yCoord= 0;
-		}
-		while(yCoord < getRowsIndex() && xCoord < getColumnsIndex()){
-			if(this.board.get(yCoord).get(xCoord).equals(p.getColor())){
-				connected ++;
+		int checked = 0;
+		while(checked <= 7){
+			if(this.board[xPos][yPos].getState().equals(p.getColor())){
+				hasConnectFour.add(this.board[xPos][yPos]);
+				if(hasConnectFour.size() >= 4){
+					alreadyHasConnectFour = true;
+				}
 			}
 			else{
-				connected = 0;
+				if(!alreadyHasConnectFour){
+					hasConnectFour.clear();
+				}
+				else{
+					break;
+				}
 			}
-			if(connected >= 4){
-				hasConnectFour = true;
+			if(yPos < getRowsIndex()){
+				yPos ++;
+			}
+			else{
 				break;
 			}
-			yCoord ++;
-			xCoord ++;
+			if(xPos < getColumnsIndex()){
+				xPos ++;
+			}
+			else{
+				break;
+			}
+			checked ++;
 		}
 		return hasConnectFour;
 	}
-	*/
+	
 }
