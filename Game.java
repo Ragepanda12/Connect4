@@ -8,7 +8,7 @@ public class Game {
 	private ArrayList<Player> players;
 	//Constructor
 	public Game(){
-		this.gameBoard = new Board(6, 7);
+		this.gameBoard = new Board(6, 7, 4);
 		Player red = new Player("red");
 		Player yellow = new Player("yellow");
 		this.players = new ArrayList<Player>();
@@ -41,6 +41,7 @@ public class Game {
 					player --;
 				}
 				if(this.gameBoard.hasConnectFour(currentPlayer, successMove).size() >= 4){
+					this.gameBoard.printBoard();
 					scanner.close();
 					break;
 				}

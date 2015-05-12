@@ -6,9 +6,10 @@ public class Board {
 	private Spot[][] board;
 	private int columns;
 	private int rows;
+	private int goal;
 	
 	//Constructor
-	public Board(int column, int rows){
+	public Board(int column, int rows, int goal){
 		//2d array stores the board, (0,0) is in the top left
 		//Coord of a spot is this.board[toReturn.getY()][toReturn.getX()]
 		this.board = new Spot[column][rows];
@@ -16,7 +17,7 @@ public class Board {
 		int spot = 0;
 		while (columns < column){
 			while(spot < rows){
-				Spot s = new Spot(spot, columns);
+				Spot s = new Spot(columns, spot);
 				this.board[columns][spot] = s;
 				spot ++;
 			}
@@ -27,20 +28,25 @@ public class Board {
 		//Yes.
 		this.columns = column;
 		this.rows = rows;
+		this.goal = goal;
 	}
 	//Methods
 	public Spot[][] getBoard(){
 		return this.board;
 	}
+	//Gets the total number of columns
 	public int getColumns(){
 		return this.columns;
 	}
+	//Gets the total number of rows
 	public int getRows(){
 		return this.rows;
 	}
+	//Gets the total number of rows starting from 0
 	public int getRowsIndex(){
 		return this.rows - 1;
 	}
+	//Gets the total numbe of columns starting from 0
 	public int getColumnsIndex(){
 		return this.columns - 1;
 	}
@@ -62,6 +68,11 @@ public class Board {
 			spot ++;
 		}
 	}
+	public void printWinning(ArrayList<Spot> win){
+		for(Spot s : win){
+			System.out.println(s.getX() + " " + s.getY());
+		}
+	}
 	public Spot addPiece(Player p, int column){
 		Spot toReturn = null;
 		int spot = getRowsIndex();
@@ -77,25 +88,28 @@ public class Board {
 	}
 	//Only check for connect4 after someone has played a move.
 	//Return a list of the connect 4 generated, empty list if no connect 4
+	//Print out coordinates of winning
 	public ArrayList<Spot> hasConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		if(hasConnectFour.size() < 4){
+		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasVertConnectFour(p, s);
 		}
-		if(hasConnectFour.size() < 4){
+		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasHoriConnectFour(p, s);
 		}
-		if(hasConnectFour.size() < 4){
+		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasDiagDownRightConnectFour(p, s);
 		}
-		if(hasConnectFour.size() < 4){
+		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasDiagUpRightConnectFour(p, s);
+		}
+		if(hasConnectFour.size() >= goal){
+			printWinning(hasConnectFour);
 		}
 		return hasConnectFour;
 	}
-	public ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
+	private ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		//this.board[s.getX()][s.getY()];
 		int yPos = s.getY() - 3;
 		int toYPos = s.getY() + 3;
 		boolean alreadyHasConnectFour = false;
@@ -108,7 +122,7 @@ public class Board {
 		while(yPos <= toYPos){
 			if(this.board[s.getX()][yPos].getState().equals(p.getColor())){
 				hasConnectFour.add(this.board[s.getX()][yPos]);
-				if(hasConnectFour.size() >= 4){
+				if(hasConnectFour.size() >= this.goal){
 					System.out.println("Vert");
 					alreadyHasConnectFour = true;
 				}
@@ -127,7 +141,6 @@ public class Board {
 	}
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		//this.board[s.getX()][s.getY()];
 		int xPos = s.getX() - 3;
 		int toXPos = s.getX() + 3;
 		boolean alreadyHasConnectFour = false;
@@ -140,7 +153,7 @@ public class Board {
 		while(xPos <= toXPos){
 			if(this.board[xPos][s.getY()].getState().equals(p.getColor())){
 				hasConnectFour.add(this.board[xPos][s.getY()]);
-				if(hasConnectFour.size() >= 4){
+				if(hasConnectFour.size() >= this.goal){
 					System.out.println("Hori");
 					alreadyHasConnectFour = true;
 				}
@@ -157,11 +170,7 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
-	
-	//This one is complicated. Still not working atm.
-	//TODO
 	private ArrayList<Spot> hasDiagDownRightConnectFour(Player p, Spot s){
-		//DOWNRIGHT MATCHING
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
 		int xPos = s.getX();
@@ -176,7 +185,7 @@ public class Board {
 		while(checked <= 7){
 			if(this.board[xPos][yPos].getState().equals(p.getColor())){
 				hasConnectFour.add(this.board[xPos][yPos]);
-				if(hasConnectFour.size() >= 4){
+				if(hasConnectFour.size() >= this.goal){
 					alreadyHasConnectFour = true;
 				}
 			}
@@ -205,7 +214,6 @@ public class Board {
 		return hasConnectFour;
 	}
 	private ArrayList<Spot> hasDiagUpRightConnectFour(Player p, Spot s){
-		//UPRIGHT MATCHING
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
 		int xPos = s.getX();
@@ -220,7 +228,7 @@ public class Board {
 		while(checked <= 7){
 			if(this.board[xPos][yPos].getState().equals(p.getColor())){
 				hasConnectFour.add(this.board[xPos][yPos]);
-				if(hasConnectFour.size() >= 4){
+				if(hasConnectFour.size() >= this.goal){
 					alreadyHasConnectFour = true;
 				}
 			}
