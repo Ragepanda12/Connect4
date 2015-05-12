@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 
 public class Player {
 	//Fields
@@ -9,5 +11,9 @@ public class Player {
 	//Method
 	public String getColor(){
 		return this.playerColor;
+	}
+	public int getMove(Scanner scanner){
+		int column = scanner.nextInt() - 1;
+		return column;
 	}
 }

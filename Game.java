@@ -6,23 +6,38 @@ public class Game {
 	//Fields
 	private Board gameBoard;
 	private ArrayList<Player> players;
+	private int turnNumber;
 	//Constructor
-	public Game(){
-		this.gameBoard = new Board(6, 7, 4);
-		Player red = new Player("red");
-		Player yellow = new Player("yellow");
+	public Game(int gameMode){
 		this.players = new ArrayList<Player>();
-		this.players.add(red);
-		this.players.add(yellow);
+		if(gameMode == 1){
+			this.gameBoard = new Board(6,7,4);
+			Player red = new Player("red");
+			AI yellow = new AI("yellow", this.gameBoard);
+			this.players.add(red);
+			this.players.add(yellow);
+			this.turnNumber = 0;
+		}
+		if(gameMode == 2){
+			this.gameBoard = new Board(6, 7, 4);
+			Player red = new Player("red");
+			Player yellow = new Player("yellow");
+			this.players.add(red);
+			this.players.add(yellow);
+		}
 	}
 	//Method
 	public static void main(String args[]){
-		Game newGame = new Game();
-		Player winner = newGame.runGame();
+		System.out.println("Type 1 for AI, 2 for 2p");
+		Scanner newScanner = new Scanner(System.in);
+		int gameMode = newScanner.nextInt();
+		Game newGame = new Game(gameMode);
+		Player winner = newGame.runGame(newScanner);
 		System.out.println(winner.getColor() + " wins!");
 	}
-	public Player runGame(){
-		Scanner scanner = new Scanner(System.in);
+
+	public Player runGame(Scanner newScanner){
+		Scanner scanner = newScanner;
 		int player = 0;
 		Player currentPlayer = this.players.get(player);
 		while(true){
@@ -30,10 +45,9 @@ public class Game {
 			this.gameBoard.printBoard();
 			System.out.println("It is currently " + currentPlayer.getColor() + "'s turn.");
 			System.out.println("Please enter the column you want to put a piece in.");
-
-			int column = scanner.nextInt() - 1;
+			int column = currentPlayer.getMove(scanner);
 			Spot successMove = null;
-			if(column > 0 && column < this.gameBoard.getColumnsIndex()){
+			if(column >= 0 && column <= this.gameBoard.getColumnsIndex()){
 				successMove = gameBoard.addPiece(currentPlayer, column);
 			}
 			if(successMove != null){
@@ -43,9 +57,13 @@ public class Game {
 				else{
 					player --;
 				}
+				this.turnNumber ++;
 				if(this.gameBoard.hasConnectFour(currentPlayer, successMove).size() >= 4){
 					this.gameBoard.printBoard();
 					scanner.close();
+					break;
+				}
+				if(turnNumber == this.gameBoard.getColumns() * this.gameBoard.getRows()){
 					break;
 				}
 			}
