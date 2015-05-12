@@ -32,7 +32,10 @@ public class Game {
 			System.out.println("Please enter the column you want to put a piece in.");
 
 			int column = scanner.nextInt() - 1;
-			Spot successMove = gameBoard.addPiece(currentPlayer, column);
+			Spot successMove = null;
+			if(column > 0 && column < this.gameBoard.getColumnsIndex()){
+				successMove = gameBoard.addPiece(currentPlayer, column);
+			}
 			if(successMove != null){
 				if(player == 0){
 					player ++;
