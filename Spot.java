@@ -1,21 +1,21 @@
 
 public class Spot {
 	//Fields
-	private String state;
+	private int state;
 	private int xcoord;
 	private int ycoord;
 	//Constructor
 	public Spot(int xcoord, int ycoord){
 		//There has to be a better way of doing this....
-		this.state = "Blank";
+		this.state = 0;
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
 	}
 	//Methods
-	public String getState(){
+	public int getState(){
 		return this.state;
 	}
-	public void changeState(String color){
+	public void changeState(int color){
 		this.state = color;
 	}
 	public int getX(){
@@ -23,9 +23,5 @@ public class Spot {
 	}
 	public int getY(){
 		return this.ycoord;
-	}
-	public String getStateShort(){
-		String firstLetter = this.state.substring(0, 1);
-		return firstLetter;
 	}
 }

@@ -5,7 +5,7 @@ public class AI extends Player{
 	//Fields
 	private Board b;
 	//Constructor
-	public AI(String color, Board b){
+	public AI(int color, Board b){
 		super(color);
 		this.b = b;
 	}
@@ -14,7 +14,7 @@ public class AI extends Player{
 	//10/10 strat
 	public int getMove(Scanner scanner){
 		int toPut = 0;
-		if(!(b.getBoard()[toPut][0].getState().equals("Blank"))){
+		if(!(b.getBoard()[toPut][0].getState() == 0)){
 			toPut ++;
 		}
 		return toPut;

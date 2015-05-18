@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class Player {
 	//Fields
-	private String playerColor;
+	private int playerColor;
 	//Constructor
-	public Player(String color){
+	public Player(int color){
 		this.playerColor = color;
 	}
 	//Method
-	public String getColor(){
+	public int getColor(){
 		return this.playerColor;
 	}
 	public int getMove(Scanner scanner){

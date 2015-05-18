@@ -12,16 +12,16 @@ public class Game {
 		this.players = new ArrayList<Player>();
 		if(gameMode == 1){
 			this.gameBoard = new Board(6,7,4);
-			Player red = new Player("red");
-			AI yellow = new AI("yellow", this.gameBoard);
+			Player red = new Player(1);
+			AI yellow = new AI(2, this.gameBoard);
 			this.players.add(red);
 			this.players.add(yellow);
 			this.turnNumber = 0;
 		}
 		if(gameMode == 2){
 			this.gameBoard = new Board(6, 7, 4);
-			Player red = new Player("red");
-			Player yellow = new Player("yellow");
+			Player red = new Player(1);
+			Player yellow = new Player(2);
 			this.players.add(red);
 			this.players.add(yellow);
 		}

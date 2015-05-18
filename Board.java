@@ -60,7 +60,7 @@ public class Board {
 
 		while(spot <= getRowsIndex()){
 			while(column <= getColumnsIndex()){	
-				System.out.print(this.board[column][spot].getStateShort() + " ");
+				System.out.print(this.board[column][spot].getState() + " ");
 				column ++;
 			}
 			column = 0;
@@ -77,7 +77,7 @@ public class Board {
 		Spot toReturn = null;
 		int spot = getRowsIndex();
 		while(spot >= 0 ){
-			if(this.board[column][spot].getState().equals("Blank")){
+			if(this.board[column][spot].getState() == 0){
 				this.board[column][spot].changeState(p.getColor());
 				toReturn = this.board[column][spot];
 				break;
@@ -120,7 +120,7 @@ public class Board {
 			toYPos = getRowsIndex();
 		}
 		while(yPos <= toYPos){
-			if(this.board[s.getX()][yPos].getState().equals(p.getColor())){
+			if(this.board[s.getX()][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[s.getX()][yPos]);
 				if(hasConnectFour.size() >= this.goal){
 					System.out.println("Vert");
@@ -151,7 +151,7 @@ public class Board {
 			toXPos = getColumnsIndex();
 		}
 		while(xPos <= toXPos){
-			if(this.board[xPos][s.getY()].getState().equals(p.getColor())){
+			if(this.board[xPos][s.getY()].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][s.getY()]);
 				if(hasConnectFour.size() >= this.goal){
 					System.out.println("Hori");
@@ -183,7 +183,7 @@ public class Board {
 		}
 		int checked = 0;
 		while(checked <= 7){
-			if(this.board[xPos][yPos].getState().equals(p.getColor())){
+			if(this.board[xPos][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][yPos]);
 				if(hasConnectFour.size() >= this.goal){
 					alreadyHasConnectFour = true;
@@ -226,7 +226,7 @@ public class Board {
 		}
 		int checked = 0;
 		while(checked <= 7){
-			if(this.board[xPos][yPos].getState().equals(p.getColor())){
+			if(this.board[xPos][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][yPos]);
 				if(hasConnectFour.size() >= this.goal){
 					alreadyHasConnectFour = true;
