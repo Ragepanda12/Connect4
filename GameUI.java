@@ -10,6 +10,7 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class GameUI extends JFrame{
 	private final int WIDTH = 800;
@@ -22,7 +23,11 @@ public class GameUI extends JFrame{
 	private MainMenu mainMenu;
 	
 	public static void main(String[] args){
-		GameUI game = new GameUI();
+	    SwingUtilities.invokeLater(new Runnable() {
+	        public void run() {
+	            GameUI game = new GameUI();
+	        }
+	    });
 	}
 
 	public GameUI() {
