@@ -6,12 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class gameScreen extends GameUI implements MouseListener{
-	
-	public gameScreen(Board b){
-		this.addMouseListener(l);
+public class gameScreen extends GameUI{
+	private Board gameBoard;
+	public gameScreen(){
+		this.gameBoard = new Board(6,7,4);
 	}
-	@Override
+	/*@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponents(g);
@@ -33,6 +33,7 @@ public class gameScreen extends GameUI implements MouseListener{
 			}
 			xPos += xIncr;
 		}
+
 	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -60,4 +61,7 @@ public class gameScreen extends GameUI implements MouseListener{
 		System.out.println(e.getX());
 		
 	}
+
+	}*/
+
 }
