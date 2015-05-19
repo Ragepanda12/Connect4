@@ -17,6 +17,9 @@ public class GameUI extends JFrame{
 	private final Dimension gameDimensions = new Dimension(WIDTH, HEIGHT);
 	private final String TITLE = "Connect 4";
 	private Graphics g;
+	private SinglePlayerMenu single;
+	private MultiPlayerMenu multi;
+	private MainMenu mainMenu;
 
 	public GameUI() {
 		this.setLayout(new BorderLayout());
@@ -31,14 +34,28 @@ public class GameUI extends JFrame{
 		this.setTitle(TITLE);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		SinglePlayerMenu single = new SinglePlayerMenu();
-		MultiPlayerMenu multi = new MultiPlayerMenu();
-		MainMenu main = new MainMenu(single, multi);
+		SinglePlayerMenu single = new SinglePlayerMenu(this);
+		MultiPlayerMenu multi = new MultiPlayerMenu(this);
+		MainMenu main = new MainMenu(this);
+		this.single = single;
+		this.multi = multi;
+		this.mainMenu = main;
 		this.add(main);
 		this.pack();
 		this.setVisible(true);
-		single.setVisible(false);
-		main.setVisible(true);
+		this.single.setVisible(false);
+		this.multi.setVisible(false);
+		this.setContentPane(this.mainMenu);
+		this.mainMenu.setVisible(true);
 		
+	}
+	public SinglePlayerMenu getSinglePlayerMenu(){
+		return this.single;
+	}
+	public MultiPlayerMenu getMultiPlayerMenu(){
+		return this.multi;
+	}
+	public MainMenu getMainMenu(){
+		return this.mainMenu;
 	}
 }
