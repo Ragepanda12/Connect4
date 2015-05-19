@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Game {
 	//Fields
-	private static Board gameBoard;
+	private Board gameBoard;
 	private ArrayList<Player> players;
 	private int turnNumber;
 	//Constructor
@@ -28,13 +28,13 @@ public class Game {
 	}
 	//Method
 	public static void main(String args[]){
-		System.out.println("Type 1 for AI, 2 for 2p");
-		Scanner newScanner = new Scanner(System.in);
-		int gameMode = newScanner.nextInt();
-		gameScreen gui = new gameScreen(gameBoard);
-		Game newGame = new Game(gameMode);
-		Player winner = newGame.runGame(newScanner);
-		System.out.println(winner.getColor() + " wins!");
+		//System.out.println("Type 1 for AI, 2 for 2p");
+		//Scanner newScanner = new Scanner(System.in);
+		//int gameMode = newScanner.nextInt();
+		//Game newGame = new Game(gameMode);
+		gameScreen gui = new gameScreen();
+		//Player winner = newGame.runGame(newScanner);
+		//System.out.println(winner.getColor() + " wins!");
 	}
 
 	public Player runGame(Scanner newScanner){

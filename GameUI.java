@@ -25,17 +25,17 @@ public class GameUI extends JFrame implements ActionListener {
 	}
 
 	private void init() {
-		this.setLocationRelativeTo(null);
-		this.setPreferredSize(gameDimensions);
-		this.setResizable(false);
+		setLocationRelativeTo(null);
+		setPreferredSize(gameDimensions);
+		setResizable(false);
 
 		setTitle(TITLE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		
 		addButtons();
+		setVisible(true);
 		pack();
-		this.setVisible(true);
 	}
 	public void addButtons(){
 		JPanel panel = new JPanel();
