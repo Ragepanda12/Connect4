@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GameUI extends JFrame implements ActionListener {
+public class GameUI extends JFrame{
 	private final int WIDTH = 800;
 	private final int HEIGHT = WIDTH / 16 * 9;
 	private final Dimension gameDimensions = new Dimension(WIDTH, HEIGHT);
@@ -21,7 +21,6 @@ public class GameUI extends JFrame implements ActionListener {
 	public GameUI() {
 		this.setLayout(new BorderLayout());
 		init();
-		System.out.println("Frame has been made");
 	}
 
 	private void init() {
@@ -29,22 +28,17 @@ public class GameUI extends JFrame implements ActionListener {
 		this.setPreferredSize(gameDimensions);
 		this.setResizable(false);
 
-		setTitle(TITLE);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle(TITLE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		
-		addButtons();
-		pack();
+		SinglePlayerMenu single = new SinglePlayerMenu();
+		MultiPlayerMenu multi = new MultiPlayerMenu();
+		MainMenu main = new MainMenu(single, multi);
+		this.add(main);
+		this.pack();
 		this.setVisible(true);
-	}
-	public void addButtons(){
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		JButton toMenu = new JButton("Connect 4");
-		panel.add(toMenu);
-		add(panel,BorderLayout.NORTH);
-	}
-	public void actionPerformed(ActionEvent arg0) {
-		//ToDO
+		single.setVisible(false);
+		main.setVisible(true);
+		
 	}
 }

@@ -9,10 +9,19 @@ import javax.swing.JPanel;
 
 public class gameScreen extends GameUI{
 	private Board gameBoard;
-	public gameScreen(Board b){
-		gameBoard = b;
+	public gameScreen(){
+		this.gameBoard = new Board(6,7,4);
 	}
-	@Override
+	public static void main(String args[]){
+		//System.out.println("Type 1 for AI, 2 for 2p");
+		//Scanner newScanner = new Scanner(System.in);
+		//int gameMode = newScanner.nextInt();
+		//Game newGame = new Game(gameMode);
+		gameScreen gui = new gameScreen();
+		//Player winner = newGame.runGame(newScanner);
+		//System.out.println(winner.getColor() + " wins!");
+	}
+	/*@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.RED);
@@ -32,5 +41,5 @@ public class gameScreen extends GameUI{
 			}
 			xPos += xIncr;
 		}
-	}
+	}*/
 }
