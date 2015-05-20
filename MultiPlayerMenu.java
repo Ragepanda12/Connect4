@@ -53,7 +53,7 @@ public class MultiPlayerMenu extends JPanel{
 
 		
 		JLabel numrows = new JLabel("Number of Rows");
-		JLabel numGameRows = new JLabel(String.valueOf(inputRows) + " (Max 20.)");
+		final JLabel numGameRows = new JLabel(String.valueOf(inputRows) + " (Max 20.)");
 	    
 	    numrows.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numrows.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -70,7 +70,7 @@ public class MultiPlayerMenu extends JPanel{
 	    sizeBoardColumn.setLayout(new GridLayout(0,1));
 	    
 		JLabel numCol = new JLabel("Number of Columns");
-		JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
+		final JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
 	    
 	    numCol.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numCol.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -81,16 +81,16 @@ public class MultiPlayerMenu extends JPanel{
 	    sizeBoardColumn.add(numGameCols);
 	    
 	    JPanel numPlayers = new JPanel();
-	    numPlayers.setLayout(new GridLayout(0,1));
+	    numPlayers.setLayout(new GridLayout(0,2));
 	    JLabel players = new JLabel("Number of Players");
-	    JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    final JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
 	    numPlayers.add(players);
 	    numPlayers.add(numplay);
 	    
 	    JPanel victoryPoints = new JPanel();
 	    victoryPoints.setLayout(new GridLayout(0,1));
 	    JLabel declaration = new JLabel("Winning Connection Number");
-	    JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
+	    final JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
 	    victoryPoints.add(declaration);
 	    victoryPoints.add(numWin);
 	    
@@ -128,13 +128,17 @@ public class MultiPlayerMenu extends JPanel{
 		});
 		
 		JButton defaults = new JButton("Default Setting");
-		start.addActionListener(new ActionListener(){
+		defaults.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				inputRows = parentFrame.getDefaultRow();
 				inputColumns = parentFrame.getDefaultCol();
 				inputPlayers = parentFrame.getDefaultPlayer();
 				winningNumber = parentFrame.getDefaultWin();
-				
+				numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
+				numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+				numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+				numWin.setText(String.valueOf(winningNumber) + " (Max 10.)");
+				parentFrame.repaint();
 			}
 		});
 		
