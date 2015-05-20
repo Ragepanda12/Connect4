@@ -41,46 +41,60 @@ public class MultiPlayerMenu extends JPanel{
 		JLabel options = new JLabel("Multiplayer Mode");
 		options.setAlignmentX(Component.CENTER_ALIGNMENT);
 		options.setAlignmentY(Component.CENTER_ALIGNMENT);
+		int inputRows = 6;
+		int inputColumns = 7;
+		int inputPlayers = 2;
+		int winningNumber = 4;
 		
-		JLabel howHard = new JLabel("Blah");
-		howHard.setAlignmentX(Component.CENTER_ALIGNMENT);
-		howHard.setAlignmentY(Component.CENTER_ALIGNMENT);
-		
-		JRadioButton easy = new JRadioButton("Easy");
-		easy.setMnemonic(KeyEvent.VK_B);
-	    easy.setActionCommand("Easy");
-	    easy.setSelected(true);
-	    easy.setAlignmentX(Component.CENTER_ALIGNMENT);
-	    easy.setAlignmentY(Component.CENTER_ALIGNMENT);
-		
-	    JRadioButton hard = new JRadioButton("Hard");
-	    hard.setMnemonic(KeyEvent.VK_B);
-	    hard.setActionCommand("Hard");
-	    hard.setAlignmentX(Component.CENTER_ALIGNMENT);
-	    hard.setAlignmentY(Component.CENTER_ALIGNMENT);
+		JLabel numrows = new JLabel("Number of Rows");
+		JLabel numGameRows = new JLabel(String.valueOf(inputRows) + " (Max 20.)");
 	    
-	    JRadioButton random = new JRadioButton("Random");
-	    random.setMnemonic(KeyEvent.VK_B);
-	    random.setActionCommand("Random");
-	    random.setAlignmentX(Component.CENTER_ALIGNMENT);
-	    random.setAlignmentY(Component.CENTER_ALIGNMENT);
+	    numrows.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    numrows.setAlignmentY(Component.LEFT_ALIGNMENT);
+	    numGameRows.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    numGameRows.setAlignmentY(Component.LEFT_ALIGNMENT);
 	    
-	    ButtonGroup group = new ButtonGroup();
-        group.add(easy);
-        group.add(hard);
-        group.add(random);
+	    JPanel sizeBoardRow = new JPanel();
+	    sizeBoardRow.setLayout(new GridLayout(0,1));
+	    
+		sizeBoardRow.add(numrows);
+		sizeBoardRow.add(numGameRows);
+	    
+	    JPanel sizeBoardColumn = new JPanel();
+	    sizeBoardColumn.setLayout(new GridLayout(0,1));
+	    
+		JLabel numCol = new JLabel("Number of Columns");
+		JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
+	    
+	    numCol.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    numCol.setAlignmentY(Component.LEFT_ALIGNMENT);
+	    numGameCols.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    numGameCols.setAlignmentY(Component.LEFT_ALIGNMENT);
+		
+	    sizeBoardColumn.add(numCol);
+	    sizeBoardColumn.add(numGameCols);
+	    
+	    JPanel numPlayers = new JPanel();
+	    numPlayers.setLayout(new GridLayout(0,1));
+	    JLabel players = new JLabel("Number of Players");
+	    JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    numPlayers.add(players);
+	    numPlayers.add(numplay);
+	    
+	    JPanel victoryPoints = new JPanel();
+	    victoryPoints.setLayout(new GridLayout(0,1));
+	    JLabel declaration = new JLabel("Number connected required to win");
+	    JLabel numwin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
+	    victoryPoints.add(declaration);
+	    victoryPoints.add(numwin);
 	    
 		right.add(options);
-		right.add(Box.createRigidArea(new Dimension(10, 50)));
-		right.add(howHard);
-		right.add(Box.createRigidArea(new Dimension(10, 25)));
-		right.add(easy);
-		right.add(hard);
-		right.add(random);
-		right.add(Box.createRigidArea(new Dimension(10,50)));
-
-		right.add(Box.createRigidArea(new Dimension(10, 50)));
-		
+		right.add(Box.createRigidArea(new Dimension(10,20)));
+		right.add(sizeBoardRow);
+		right.add(sizeBoardColumn);
+		right.add(numPlayers);
+		right.add(victoryPoints);
+		//right.add(Box.createRigidArea(new Dimension(10, 20)));
 		
 		JPanel left = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
@@ -112,6 +126,7 @@ public class MultiPlayerMenu extends JPanel{
 		left.add(back);
 		right.add(start);
 		left.add(Box.createRigidArea(new Dimension(10, 20)));
+		right.add(Box.createRigidArea(new Dimension(10,20)));
 		right.setBorder(empty);
 		left.setBorder(empty);
 
