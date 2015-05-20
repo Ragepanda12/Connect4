@@ -1,5 +1,6 @@
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,8 +20,16 @@ import javax.swing.border.Border;
 
 public class MultiPlayerMenu extends JPanel{
 	private GameUI parentFrame;
+	private int inputRows;
+	private int inputColumns;
+	private int inputPlayers;
+	private int winningNumber;
 	public MultiPlayerMenu(GameUI parent){
 		this.parentFrame = parent;
+		inputRows = this.parentFrame.getDefaultRow();
+		inputColumns = this.parentFrame.getDefaultCol();
+		inputPlayers = this.parentFrame.getDefaultPlayer();
+		winningNumber = this.parentFrame.getDefaultWin();
 		Border empty = BorderFactory.createEmptyBorder(10,10,10,10);
 		GridLayout g = new GridLayout(0,2);
 		this.setLayout(g);
@@ -41,10 +50,7 @@ public class MultiPlayerMenu extends JPanel{
 		JLabel options = new JLabel("Multiplayer Mode");
 		options.setAlignmentX(Component.CENTER_ALIGNMENT);
 		options.setAlignmentY(Component.CENTER_ALIGNMENT);
-		int inputRows = 6;
-		int inputColumns = 7;
-		int inputPlayers = 2;
-		int winningNumber = 4;
+
 		
 		JLabel numrows = new JLabel("Number of Rows");
 		JLabel numGameRows = new JLabel(String.valueOf(inputRows) + " (Max 20.)");
@@ -83,10 +89,10 @@ public class MultiPlayerMenu extends JPanel{
 	    
 	    JPanel victoryPoints = new JPanel();
 	    victoryPoints.setLayout(new GridLayout(0,1));
-	    JLabel declaration = new JLabel("Number connected required to win");
-	    JLabel numwin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
+	    JLabel declaration = new JLabel("Winning Connection Number");
+	    JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
 	    victoryPoints.add(declaration);
-	    victoryPoints.add(numwin);
+	    victoryPoints.add(numWin);
 	    
 		right.add(options);
 		right.add(Box.createRigidArea(new Dimension(10,20)));
@@ -120,11 +126,28 @@ public class MultiPlayerMenu extends JPanel{
 				parentFrame.getMainMenu().setVisible(true);
 			}
 		});
+		
+		JButton defaults = new JButton("Default Setting");
+		start.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				inputRows = parentFrame.getDefaultRow();
+				inputColumns = parentFrame.getDefaultCol();
+				inputPlayers = parentFrame.getDefaultPlayer();
+				winningNumber = parentFrame.getDefaultWin();
+				
+			}
+		});
+		
+		JPanel buttons = new JPanel();
+		buttons.setLayout(new FlowLayout());
+		buttons.add(defaults);
+		buttons.add(start);
+		
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);
 		start.setAlignmentY(Component.CENTER_ALIGNMENT);
 		left.add(Box.createRigidArea(new Dimension(10, 20)));
 		left.add(back);
-		right.add(start);
+		right.add(buttons);
 		left.add(Box.createRigidArea(new Dimension(10, 20)));
 		right.add(Box.createRigidArea(new Dimension(10,20)));
 		right.setBorder(empty);

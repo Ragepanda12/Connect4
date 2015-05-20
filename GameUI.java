@@ -21,6 +21,10 @@ public class GameUI extends JFrame{
 	private SinglePlayerMenu single;
 	private MultiPlayerMenu multi;
 	private MainMenu mainMenu;
+	private int defaultRow = 6;
+	private int defaultCol = 7;
+	private int defaultWin = 4;
+	private int defaultPlayer = 2;
 	
 	public static void main(String[] args){
 	    SwingUtilities.invokeLater(new Runnable() {
@@ -35,6 +39,22 @@ public class GameUI extends JFrame{
 		init();
 	}
 
+	public int getDefaultRow(){
+		return this.defaultRow;
+	}
+	
+	public int getDefaultCol(){
+		return this.defaultCol;
+	}
+	
+	public int getDefaultWin(){
+		return this.defaultWin;
+	}
+	
+	public int getDefaultPlayer(){
+		return this.defaultPlayer;
+	}
+	
 	private void init() {
 		this.setLocationRelativeTo(null);
 		this.setPreferredSize(gameDimensions);
