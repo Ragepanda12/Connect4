@@ -220,10 +220,10 @@ public class MultiPlayerMenu extends JPanel{
 		JPanel left = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 		String text = 
-			    "This is a placeholder text " +
-			    "it will hold the rules for connect 4 " +
-			    "and some explanations of options in the multiplayer menu. " +
-			    "Refridgerator.";
+			    "Pit your Connect 4 skills against your friends in multiplayer mode!"
+				+ "Set up to 8 players in a board up to 20 columns x 20 rows."
+			    + "Alternatively, try new strategies in Connect 5, or even Connect 6! Anything goes, up to Connect 10."
+				;
 		JTextArea textArea = new JTextArea(1,1);
 		textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textArea.setAlignmentY(Component.CENTER_ALIGNMENT);
