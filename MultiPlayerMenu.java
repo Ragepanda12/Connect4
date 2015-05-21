@@ -60,39 +60,136 @@ public class MultiPlayerMenu extends JPanel{
 	    numGameRows.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numGameRows.setAlignmentY(Component.LEFT_ALIGNMENT);
 	    
+	    JButton plusRow = new JButton("+");
+	    plusRow.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(inputRows < 20){
+					inputRows ++;
+					numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
+					parentFrame.repaint();
+				}
+			}
+		});
+	    JButton minusRow = new JButton("-");
+	    minusRow.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e){
+	    		if(inputRows > 1){
+	    			inputRows --;
+	    			numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
+	    			parentFrame.repaint();
+	    		}
+	    	}
+	    });
+	    
 	    JPanel sizeBoardRow = new JPanel();
-	    sizeBoardRow.setLayout(new GridLayout(0,1));
+	    sizeBoardRow.setLayout(new GridLayout(2,2));
 	    
 		sizeBoardRow.add(numrows);
+		sizeBoardRow.add(plusRow);
 		sizeBoardRow.add(numGameRows);
+		sizeBoardRow.add(minusRow);
 	    
 	    JPanel sizeBoardColumn = new JPanel();
-	    sizeBoardColumn.setLayout(new GridLayout(0,1));
+	    sizeBoardColumn.setLayout(new GridLayout(2,2));
 	    
 		JLabel numCol = new JLabel("Number of Columns");
 		final JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
 	    
+	    JButton plusCol = new JButton("+");
+	    plusCol.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(inputColumns < 20){
+					inputColumns ++;
+					numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+					parentFrame.repaint();
+				}
+			}
+		});
+	    JButton minusCol = new JButton("-");
+	    minusCol.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e){
+	    		if(inputColumns > 1){
+	    			inputColumns --;
+	    			numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+	    			parentFrame.repaint();
+	    		}
+	    	}
+	    });
+		
 	    numCol.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numCol.setAlignmentY(Component.LEFT_ALIGNMENT);
 	    numGameCols.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numGameCols.setAlignmentY(Component.LEFT_ALIGNMENT);
 		
 	    sizeBoardColumn.add(numCol);
+	    sizeBoardColumn.add(plusCol);
 	    sizeBoardColumn.add(numGameCols);
+	    sizeBoardColumn.add(minusCol);
 	    
 	    JPanel numPlayers = new JPanel();
-	    numPlayers.setLayout(new GridLayout(0,2));
+	    numPlayers.setLayout(new GridLayout(2,2));
 	    JLabel players = new JLabel("Number of Players");
 	    final JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    JButton plusPlay = new JButton("+");
+	    plusPlay.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(inputPlayers < 8){
+					inputPlayers ++;
+					numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+					parentFrame.repaint();
+				}
+			}
+		});
+	    JButton minusPlay = new JButton("-");
+	    minusPlay.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e){
+	    		if(inputPlayers > 1){
+	    			inputPlayers --;
+	    			numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+	    			parentFrame.repaint();
+	    		}
+	    	}
+	    });
+	    
 	    numPlayers.add(players);
+	    numPlayers.add(plusPlay);
 	    numPlayers.add(numplay);
+	    numPlayers.add(minusPlay);
 	    
 	    JPanel victoryPoints = new JPanel();
-	    victoryPoints.setLayout(new GridLayout(0,1));
+	    victoryPoints.setLayout(new GridLayout(2,2));
 	    JLabel declaration = new JLabel("Winning Connection Number");
 	    final JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
+	    
+	    JButton plusWin = new JButton("+");
+	    plusCol.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(winningNumber < 10){
+					winningNumber ++;
+					numWin.setText(String.valueOf(winningNumber) + " (Max 10.)");
+					parentFrame.repaint();
+				}
+			}
+		});
+	    JButton minusWin = new JButton("-");
+	    minusCol.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent e){
+	    		if(winningNumber > 1){
+	    			winningNumber --;
+	    			numGameCols.setText(String.valueOf(winningNumber) + " (Max 10.)");
+	    			parentFrame.repaint();
+	    		}
+	    	}
+	    });
+	    JPanel winButtons = new JPanel();
+	    winButtons.setLayout(new FlowLayout());
+	    winButtons.add(plusWin);
+	    winButtons.add(minusWin);
+	    
 	    victoryPoints.add(declaration);
+	    victoryPoints.add(Box.createRigidArea(new Dimension(10, 20)));
 	    victoryPoints.add(numWin);
+	    victoryPoints.add(winButtons);
 	    
 		right.add(options);
 		right.add(Box.createRigidArea(new Dimension(10,20)));
