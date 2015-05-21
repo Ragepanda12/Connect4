@@ -71,7 +71,7 @@ public class SinglePlayerMenu extends JPanel{
         group.add(random);
 	    
 		right.add(options);
-		right.add(Box.createRigidArea(new Dimension(10, 50)));
+		right.add(Box.createRigidArea(new Dimension(10, 100)));
 		right.add(howHard);
 		right.add(Box.createRigidArea(new Dimension(10, 25)));
 		right.add(easy);
@@ -79,7 +79,7 @@ public class SinglePlayerMenu extends JPanel{
 		right.add(random);
 		right.add(Box.createRigidArea(new Dimension(10,50)));
 
-		right.add(Box.createRigidArea(new Dimension(10, 50)));
+		right.add(Box.createRigidArea(new Dimension(10, 80)));
 		
 		
 		JPanel left = new JPanel();

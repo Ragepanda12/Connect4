@@ -60,6 +60,9 @@ public class MultiPlayerMenu extends JPanel{
 	    numGameRows.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numGameRows.setAlignmentY(Component.LEFT_ALIGNMENT);
 	    
+	    JPanel rowButtons = new JPanel();
+	    rowButtons.setLayout(new FlowLayout());
+	    
 	    JButton plusRow = new JButton("+");
 	    plusRow.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -81,13 +84,16 @@ public class MultiPlayerMenu extends JPanel{
 	    	}
 	    });
 	    
+	    rowButtons.add(plusRow);
+	    rowButtons.add(minusRow);
+	    
 	    JPanel sizeBoardRow = new JPanel();
 	    sizeBoardRow.setLayout(new GridLayout(2,2));
 	    
 		sizeBoardRow.add(numrows);
-		sizeBoardRow.add(plusRow);
+		sizeBoardRow.add(Box.createRigidArea(new Dimension(0,0)));
 		sizeBoardRow.add(numGameRows);
-		sizeBoardRow.add(minusRow);
+		sizeBoardRow.add(rowButtons);
 	    
 	    JPanel sizeBoardColumn = new JPanel();
 	    sizeBoardColumn.setLayout(new GridLayout(2,2));
@@ -95,6 +101,9 @@ public class MultiPlayerMenu extends JPanel{
 		JLabel numCol = new JLabel("Number of Columns");
 		final JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
 	    
+		JPanel columnButtons = new JPanel();
+		columnButtons.setLayout(new FlowLayout());
+		
 	    JButton plusCol = new JButton("+");
 	    plusCol.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -121,15 +130,22 @@ public class MultiPlayerMenu extends JPanel{
 	    numGameCols.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numGameCols.setAlignmentY(Component.LEFT_ALIGNMENT);
 		
+	    columnButtons.add(plusCol);
+	    columnButtons.add(minusCol);
+	    
 	    sizeBoardColumn.add(numCol);
-	    sizeBoardColumn.add(plusCol);
+	    sizeBoardColumn.add(Box.createRigidArea(new Dimension(0,0)));
 	    sizeBoardColumn.add(numGameCols);
-	    sizeBoardColumn.add(minusCol);
+	    sizeBoardColumn.add(columnButtons);
 	    
 	    JPanel numPlayers = new JPanel();
 	    numPlayers.setLayout(new GridLayout(2,2));
 	    JLabel players = new JLabel("Number of Players");
 	    final JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    
+	    JPanel playerButtons = new JPanel();
+	    playerButtons.setLayout(new FlowLayout());
+	    
 	    JButton plusPlay = new JButton("+");
 	    plusPlay.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -151,10 +167,12 @@ public class MultiPlayerMenu extends JPanel{
 	    	}
 	    });
 	    
+	    playerButtons.add(plusPlay);
+	    playerButtons.add(minusPlay);
 	    numPlayers.add(players);
-	    numPlayers.add(plusPlay);
+	    numPlayers.add(Box.createRigidArea(new Dimension(0,0)));
 	    numPlayers.add(numplay);
-	    numPlayers.add(minusPlay);
+	    numPlayers.add(playerButtons);
 	    
 	    JPanel victoryPoints = new JPanel();
 	    victoryPoints.setLayout(new GridLayout(2,2));
@@ -162,7 +180,7 @@ public class MultiPlayerMenu extends JPanel{
 	    final JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
 	    
 	    JButton plusWin = new JButton("+");
-	    plusCol.addActionListener(new ActionListener(){
+	    plusWin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(winningNumber < 10){
 					winningNumber ++;
@@ -172,11 +190,11 @@ public class MultiPlayerMenu extends JPanel{
 			}
 		});
 	    JButton minusWin = new JButton("-");
-	    minusCol.addActionListener(new ActionListener(){
+	    minusWin.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
 	    		if(winningNumber > 1){
 	    			winningNumber --;
-	    			numGameCols.setText(String.valueOf(winningNumber) + " (Max 10.)");
+	    			numWin.setText(String.valueOf(winningNumber) + " (Max 10.)");
 	    			parentFrame.repaint();
 	    		}
 	    	}
@@ -197,7 +215,7 @@ public class MultiPlayerMenu extends JPanel{
 		right.add(sizeBoardColumn);
 		right.add(numPlayers);
 		right.add(victoryPoints);
-		//right.add(Box.createRigidArea(new Dimension(10, 20)));
+		right.add(Box.createRigidArea(new Dimension(10, 25)));
 		
 		JPanel left = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
