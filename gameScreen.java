@@ -5,35 +5,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JPanel;
 
-public class gameScreen extends GameUI  implements MouseListener{
-	/*
-	public gameScreen(Board b){
-		this.addMouseListener(l);
-	}
-	*/
+
+public class gameScreen extends JPanel  implements MouseListener{
 	private int numCols;
 	private int numRows;
-	public gameScreen(){
+	private int players;
+	private int winning;
+	private Game gameState;
+	private GameUI parentFrame;
+	public gameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent){
 		super.addMouseListener(this);
-		numCols = 6;
-		numRows = 7;
+		this.numCols = column;
+		this.numRows = row;
+		this.players = players;
+		this.winning = winning;
+		this.gameState = new Game(column, row, players, winning, gameMode);
+		this.parentFrame = parent;
 	}
 	@Override
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponents(g);
-		int xIncr = (this.getWidth() -100)/numCols;
-		int yIncr = (this.getHeight() -100)/numRows;
+		int xIncr = (this.parentFrame.getWidth() - 100) / numCols;
+		int yIncr = (this.parentFrame.getHeight() - 100) / numRows;
 		//Make Background
 		g2d.setColor(Color.WHITE);
-		for(int i=50; i+ xIncr<=getWidth();i++){
-			g2d.fillRect(i, 0, xIncr, getHeight());
-			i+=xIncr;
+		for(int i = 50; i + xIncr <= this.parentFrame.getWidth(); i++){
+			g2d.fillRect(i, 0, xIncr, this.parentFrame.getHeight());
+			i += xIncr;
 		}
 		//Make Grid
-		for(int i =0,xPos = 50;i < numCols;i++){
-			for(int j =0,yPos = 100; j< numRows;j++){
+		for(int i =0,xPos = 50; i < numCols;i++){
+			for(int j =0, yPos = 100; j < numRows; j++){
 				g2d.setColor(Color.BLACK);
 				g2d.drawOval(xPos + (xIncr/2 -15), yPos, 30, 30);
 				yPos += yIncr;

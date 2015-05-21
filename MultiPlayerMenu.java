@@ -236,9 +236,11 @@ public class MultiPlayerMenu extends JPanel{
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
-				parentFrame.setContentPane(parentFrame.getMainMenu());
+				GameEnclosure game = new GameEnclosure(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame);
+				parentFrame.setGameEnclosure(game);
+				parentFrame.setContentPane(parentFrame.getGameScreen());
 				parentFrame.pack();
-				parentFrame.getMainMenu().setVisible(true);
+				parentFrame.getGameScreen().setVisible(true);
 			}
 		});
 		

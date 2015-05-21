@@ -101,9 +101,11 @@ public class SinglePlayerMenu extends JPanel{
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
-				parentFrame.setContentPane(parentFrame.getMainMenu());
+				GameEnclosure game = new GameEnclosure(7,6,2,4,1, parentFrame);
+				parentFrame.setGameEnclosure(game);
+				parentFrame.setContentPane(parentFrame.getGameScreen());
 				parentFrame.pack();
-				parentFrame.getMainMenu().setVisible(true);
+				parentFrame.getGameScreen().setVisible(true);
 			}
 		});
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);

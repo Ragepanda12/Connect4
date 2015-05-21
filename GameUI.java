@@ -21,6 +21,7 @@ public class GameUI extends JFrame{
 	private SinglePlayerMenu single;
 	private MultiPlayerMenu multi;
 	private MainMenu mainMenu;
+	private GameEnclosure game;
 	private int defaultRow = 6;
 	private int defaultCol = 7;
 	private int defaultWin = 4;
@@ -30,6 +31,7 @@ public class GameUI extends JFrame{
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	            GameUI game = new GameUI();
+
 	        }
 	    });
 	}
@@ -38,7 +40,15 @@ public class GameUI extends JFrame{
 		this.setLayout(new BorderLayout());
 		init();
 	}
-
+	public int getWidth(){
+		return this.WIDTH;
+	}
+	public int getHeight(){
+		return this.HEIGHT;
+	}
+	public Dimension getDimension(){
+		return this.gameDimensions;
+	}
 	public int getDefaultRow(){
 		return this.defaultRow;
 	}
@@ -69,14 +79,18 @@ public class GameUI extends JFrame{
 		this.single = single;
 		this.multi = multi;
 		this.mainMenu = main;
-		this.add(main);
+    	gameScreen gamez = new gameScreen(7,6,2,4,1,this);
+		//this.add(main);
+		this.add(gamez);
 		this.pack();
 		this.setVisible(true);
 		this.single.setVisible(false);
 		this.multi.setVisible(false);
-		this.setContentPane(this.mainMenu);
-		this.mainMenu.setVisible(true);
-		
+		//this.setContentPane(this.mainMenu);
+		//this.mainMenu.setVisible(true);
+		this.mainMenu.setVisible(false);
+
+    	gamez.setVisible(true);
 	}
 	public SinglePlayerMenu getSinglePlayerMenu(){
 		return this.single;
@@ -86,5 +100,11 @@ public class GameUI extends JFrame{
 	}
 	public MainMenu getMainMenu(){
 		return this.mainMenu;
+	}
+	public void setGameEnclosure(GameEnclosure g){
+		this.game = g;
+	}
+	public GameEnclosure getGameScreen(){
+		return this.game;
 	}
 }
