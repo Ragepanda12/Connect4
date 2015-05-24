@@ -12,14 +12,14 @@ public class AI extends Player{
 	//Method
 	@Override
 	//10/10 strat
-	public Move getMove(){
+/*	public Move getMove(){
 		int toPut = 0;
 		if(!(b.getBoard()[toPut][0].getState() == 0)){
 			toPut ++;
 		}
 		Move m = new Move(toPut);
 		return m;
-	}
+	}*/
 
 }
 

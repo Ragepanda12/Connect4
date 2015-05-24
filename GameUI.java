@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class GameUI extends JFrame implements Runnable{
+public class GameUI extends JFrame{
 	private final int WIDTH = 800;
 	private final int HEIGHT = WIDTH / 16 * 9;
 	private final Dimension gameDimensions = new Dimension(WIDTH, HEIGHT);
@@ -30,8 +30,7 @@ public class GameUI extends JFrame implements Runnable{
 	public static void main(String[] args){
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
-	            Thread thread1 = new Thread(new GameUI());
-	            thread1.start();
+	        	GameUI g = new GameUI();
 	        }
 	    });
 	}
@@ -65,14 +64,6 @@ public class GameUI extends JFrame implements Runnable{
 		return this.defaultPlayer;
 	}
 	
-	public void run(){
-		this.pack();
-		this.setVisible(true);
-		this.single.setVisible(false);
-		this.multi.setVisible(false);
-		this.setContentPane(this.mainMenu);
-		this.mainMenu.setVisible(true);
-	}
 	private void init() {
 		this.setLocationRelativeTo(null);
 		this.setPreferredSize(gameDimensions);
@@ -89,6 +80,12 @@ public class GameUI extends JFrame implements Runnable{
 		this.single = single;
 		this.multi = multi;
 		this.mainMenu = main;
+		this.pack();
+		this.setVisible(true);
+		this.single.setVisible(false);
+		this.multi.setVisible(false);
+		this.setContentPane(this.mainMenu);
+		this.mainMenu.setVisible(true);
 	}
 	public SinglePlayerMenu getSinglePlayerMenu(){
 		return this.single;

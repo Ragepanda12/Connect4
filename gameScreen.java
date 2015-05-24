@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -31,8 +32,6 @@ public class GameScreen extends JPanel  implements MouseListener{
 		System.out.println(getWidth());
 		yIncr = ((parent.getHeight()*4/5)/numRows);
 		coinRadius = (int) (yIncr/1.5);
-		Thread thread2 = new Thread(this.gameState);
-		thread2.start();
 	}
 	@Override
 	public void paintComponent(Graphics g) {
@@ -47,8 +46,35 @@ public class GameScreen extends JPanel  implements MouseListener{
 		g2d.setColor(Background);
 		int xPos = PADDING + (index * xIncr);
 		g2d.fillRect(xPos, 0, xIncr, getHeight());
+		Spot[][] board = this.gameState.getGameBoard().getBoard();
 		for(int j =0,yPos = PADDING; j< numRows;j++){
-			g2d.setColor(Color.WHITE);
+			if(board[index][j].getState() == 0){
+				g2d.setColor(Color.WHITE);
+			}
+			else if(board[index][j].getState() == 1){
+				g2d.setColor(Color.RED);
+			}
+			else if(board[index][j].getState() == 2){
+				g2d.setColor(Color.YELLOW);
+			}
+			else if(board[index][j].getState() == 3){
+				g2d.setColor(Color.GREEN);
+			}
+			else if(board[index][j].getState() == 4){
+				g2d.setColor(Color.BLACK);
+			}
+			else if(board[index][j].getState() == 5){
+				g2d.setColor(Color.CYAN);
+			}
+			else if(board[index][j].getState() == 6){
+				g2d.setColor(Color.PINK);
+			}
+			else if(board[index][j].getState() == 7){
+				g2d.setColor(Color.LIGHT_GRAY);
+			}
+			else if(board[index][j].getState() == 8){
+				g2d.setColor(Color.MAGENTA);
+			}
 			g2d.fillOval(xPos + (xIncr/2 -15), yPos, coinRadius, coinRadius);
 			g2d.setColor(Color.BLACK);
 			g2d.drawOval(xPos + (xIncr/2 -15), yPos, coinRadius, coinRadius);
@@ -72,7 +98,11 @@ public class GameScreen extends JPanel  implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	/*public void endGame(ArrayList<Spot> winning){
+		while(true){
+			
+		}
+	}*/
 	@Override
 	public void mousePressed(MouseEvent e) {
 		int xPos = e.getX();
@@ -82,9 +112,12 @@ public class GameScreen extends JPanel  implements MouseListener{
 			xPos -= xIncr;
 		}
 		if(cPos > 0 && cPos <= numCols){
-			this.gameState.getCurrentPlayer().setNextMove(new Move(cPos));
-			System.out.println(cPos);
+			ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
+			//System.out.println(cPos);
 			drawCol(this.getGraphics(), cPos -1, Color.BLUE);
+			if(winning.size() >= 4){
+				//endGame(winning);
+			}
 		}else{
 			System.out.println("padding");
 		}

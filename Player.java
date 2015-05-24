@@ -20,30 +20,9 @@ public class Player {
 	public int getColor(){
 		return this.playerColor;
 	}
-	public Move getMove(){
-		boolean inputIsReady = false;
-		while(!inputIsReady){
-			System.out.println("Heyo");
-			try {
-				if(this.latestMove == 0){
-					System.out.println("Sup");
-					Thread.sleep(500);
-				}
-				else if(this.moves.get(latestInputMove) != null){
-					System.out.println("HI");
-					inputIsReady = true;
-				}
-				else{
-					System.out.println("I'm here");
-					Thread.sleep(500);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		latestInputMove ++;
-		return this.moves.get(latestInputMove - 1);
-	}
+	/*public Move getMove(){
+
+	}*/
 	public void setNextMove(Move m){
 		//if(this.latestInputMove != this.latestMove){
 			this.moves.add(m);

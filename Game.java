@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Game implements Runnable{
+public class Game{
 	//Fields
 	private Board gameBoard;
 	private ArrayList<Player> players;
@@ -20,8 +20,8 @@ public class Game implements Runnable{
 		}
 		if(gameMode == 2){
 			this.gameBoard = new Board(columns, rows, winningNumber);
-			int playerNumber = 0;
-			while(playerNumber < players){
+			int playerNumber = 1;
+			while(playerNumber <= players){
 				Player player = new Player(playerNumber);
 				this.players.add(player);
 				playerNumber ++;
@@ -29,39 +29,34 @@ public class Game implements Runnable{
 		}
 	}
 	//Method
-	public void run(){
-		int player = 0;
-		Player currentPlayer = this.players.get(player);
-		while(true){
-			this.gameBoard.printBoard();
-			System.out.println("It is currently " + currentPlayer.getColor() + "'s turn.");
-			System.out.println("Please enter the column you want to put a piece in.");
-			int column = currentPlayer.getMove().getColumn();
-			Spot successMove = null;
-			if(column >= 0 && column <= this.gameBoard.getColumnsIndex()){
-				successMove = gameBoard.addPiece(currentPlayer, column);
-			}
-			if(successMove != null){
-				if(player == 0){
-					player ++;
-				}
-				else{
-					player --;
-				}
-				this.turnNumber ++;
-				if(this.gameBoard.hasConnectFour(currentPlayer, successMove).size() >= 4){
-					//this.gameBoard.printBoard();
-					break;
-				}
-				if(turnNumber == this.gameBoard.getColumns() * this.gameBoard.getRows()){
-					break;
-				}
-			}
-			currentPlayer = this.players.get(player);
+	public ArrayList<Spot> setMove(Move m){
+
+		Player currentPlayer = this.players.get(this.turnNumber % this.players.size());
+		Spot s = this.gameBoard.addPiece(currentPlayer, m.getColumn() - 1);
+		ArrayList<Spot> win = null;
+		if(s != null){
+			win = this.gameBoard.hasConnectFour(currentPlayer, s);
+			this.turnNumber ++;
 		}
+		return win;
 	}
-	
-/*	public Player runGame(){
+
+	public Board getGameBoard(){
+		return this.gameBoard;
+	}
+	public int getTurnNumber(){
+		return this.turnNumber;
+	}
+	public ArrayList<Player> getPlayers(){
+		return this.players;
+	}
+	public Player getPlayer(int index){
+		return this.players.get(index);
+	}
+	public Player getCurrentPlayer(){
+		return this.players.get(this.turnNumber % (this.players.size()));
+	}
+	public Player runAsciiGame(){
 		int player = 0;
 		Player currentPlayer = this.players.get(player);
 		while(true){
@@ -92,20 +87,5 @@ public class Game implements Runnable{
 			currentPlayer = this.players.get(player);
 		}
 		return currentPlayer;
-	}*/
-	public Board getGameBoard(){
-		return this.gameBoard;
-	}
-	public int getTurnNumber(){
-		return this.turnNumber;
-	}
-	public ArrayList<Player> getPlayers(){
-		return this.players;
-	}
-	public Player getPlayer(int index){
-		return this.players.get(index);
-	}
-	public Player getCurrentPlayer(){
-		return this.players.get(this.turnNumber % (this.players.size()));
 	}
 }
