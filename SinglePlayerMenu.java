@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -100,12 +101,31 @@ public class SinglePlayerMenu extends JPanel{
 		JButton start = new JButton("Start Game");
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				setVisible(false);
-				GameEnclosure game = new GameEnclosure(7,6,2,4,1, parentFrame);
-				parentFrame.setGameEnclosure(game);
-				parentFrame.setContentPane(parentFrame.getGameScreen());
-				parentFrame.pack();
-				parentFrame.getGameScreen().setVisible(true);
+
+				if(parentFrame.getGameScreen().getGame() != null){
+					int agree = JOptionPane.showConfirmDialog(
+							null,
+							"A previous game is still going. Would you like to start a new game?",
+							"",
+							JOptionPane.YES_NO_OPTION
+					);
+					if(agree == 0){
+						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 2, parentFrame);
+						setVisible(false);
+						parentFrame.getGameScreen().setGame(game);
+						parentFrame.setContentPane(parentFrame.getGameScreen());
+						parentFrame.pack();
+						parentFrame.getGameScreen().setVisible(true);
+					}
+				}
+				else{	
+					GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 2, parentFrame);
+					setVisible(false);
+					parentFrame.getGameScreen().setGame(game);
+					parentFrame.setContentPane(parentFrame.getGameScreen());
+					parentFrame.pack();
+					parentFrame.getGameScreen().setVisible(true);
+				}	
 			}
 		});
 		start.setAlignmentX(Component.CENTER_ALIGNMENT);

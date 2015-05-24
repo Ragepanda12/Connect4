@@ -12,12 +12,13 @@ public class AI extends Player{
 	//Method
 	@Override
 	//10/10 strat
-	public int getMove(Scanner scanner){
+	public Move getMove(){
 		int toPut = 0;
 		if(!(b.getBoard()[toPut][0].getState() == 0)){
 			toPut ++;
 		}
-		return toPut;
+		Move m = new Move(toPut);
+		return m;
 	}
 
 }

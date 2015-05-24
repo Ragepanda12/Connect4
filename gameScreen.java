@@ -17,7 +17,8 @@ public class GameScreen extends JPanel  implements MouseListener{
 	private GameUI parentFrame;
 	private int xIncr, yIncr;
 	private int coinRadius;
-	private final int PADDING = 50;
+	private final int PADDING = 25;
+	private Move nextMove;
 	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent){
 		super.addMouseListener(this);
 		this.numCols = column;
@@ -28,8 +29,10 @@ public class GameScreen extends JPanel  implements MouseListener{
 		this.parentFrame = parent;
 		xIncr = (parent.getWidth() - PADDING *2)/numCols;
 		System.out.println(getWidth());
-		yIncr = (parent.getHeight())/numRows;
+		yIncr = ((parent.getHeight()*4/5)/numRows);
 		coinRadius = (int) (yIncr/1.5);
+		Thread thread2 = new Thread(this.gameState);
+		thread2.start();
 	}
 	@Override
 	public void paintComponent(Graphics g) {
@@ -37,7 +40,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		super.paintComponents(g);
 		//Make Grid
 		for(int i=0; i<numCols;i++){
-			drawCol(g2d, i, Color.WHITE);
+			drawCol(g2d, i, Color.BLUE);
 		}
 	}
 	public void drawCol(Graphics g2d, int index, Color Background){
@@ -45,7 +48,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		int xPos = PADDING + (index * xIncr);
 		g2d.fillRect(xPos, 0, xIncr, getHeight());
 		for(int j =0,yPos = PADDING; j< numRows;j++){
-			g2d.setColor(Color.RED);
+			g2d.setColor(Color.WHITE);
 			g2d.fillOval(xPos + (xIncr/2 -15), yPos, coinRadius, coinRadius);
 			g2d.setColor(Color.BLACK);
 			g2d.drawOval(xPos + (xIncr/2 -15), yPos, coinRadius, coinRadius);
@@ -79,6 +82,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 			xPos -= xIncr;
 		}
 		if(cPos > 0 && cPos <= numCols){
+			this.gameState.getCurrentPlayer().setNextMove(new Move(cPos));
 			System.out.println(cPos);
 			drawCol(this.getGraphics(), cPos -1, Color.BLUE);
 		}else{

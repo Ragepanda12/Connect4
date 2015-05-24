@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Game {
+public class Game implements Runnable{
 	//Fields
 	private Board gameBoard;
 	private ArrayList<Player> players;
@@ -29,16 +29,14 @@ public class Game {
 		}
 	}
 	//Method
-	public Player runGame(Scanner newScanner){
-		Scanner scanner = newScanner;
+	public void run(){
 		int player = 0;
 		Player currentPlayer = this.players.get(player);
 		while(true){
-
 			this.gameBoard.printBoard();
 			System.out.println("It is currently " + currentPlayer.getColor() + "'s turn.");
 			System.out.println("Please enter the column you want to put a piece in.");
-			int column = currentPlayer.getMove(scanner);
+			int column = currentPlayer.getMove().getColumn();
 			Spot successMove = null;
 			if(column >= 0 && column <= this.gameBoard.getColumnsIndex()){
 				successMove = gameBoard.addPiece(currentPlayer, column);
@@ -52,8 +50,39 @@ public class Game {
 				}
 				this.turnNumber ++;
 				if(this.gameBoard.hasConnectFour(currentPlayer, successMove).size() >= 4){
-					this.gameBoard.printBoard();
-					scanner.close();
+					//this.gameBoard.printBoard();
+					break;
+				}
+				if(turnNumber == this.gameBoard.getColumns() * this.gameBoard.getRows()){
+					break;
+				}
+			}
+			currentPlayer = this.players.get(player);
+		}
+	}
+	
+/*	public Player runGame(){
+		int player = 0;
+		Player currentPlayer = this.players.get(player);
+		while(true){
+			//this.gameBoard.printBoard();
+			System.out.println("It is currently " + currentPlayer.getColor() + "'s turn.");
+			System.out.println("Please enter the column you want to put a piece in.");
+			int column = currentPlayer.getMove().getColumn();
+			Spot successMove = null;
+			if(column >= 0 && column <= this.gameBoard.getColumnsIndex()){
+				successMove = gameBoard.addPiece(currentPlayer, column);
+			}
+			if(successMove != null){
+				if(player == 0){
+					player ++;
+				}
+				else{
+					player --;
+				}
+				this.turnNumber ++;
+				if(this.gameBoard.hasConnectFour(currentPlayer, successMove).size() >= 4){
+					//this.gameBoard.printBoard();
 					break;
 				}
 				if(turnNumber == this.gameBoard.getColumns() * this.gameBoard.getRows()){
@@ -63,5 +92,20 @@ public class Game {
 			currentPlayer = this.players.get(player);
 		}
 		return currentPlayer;
+	}*/
+	public Board getGameBoard(){
+		return this.gameBoard;
+	}
+	public int getTurnNumber(){
+		return this.turnNumber;
+	}
+	public ArrayList<Player> getPlayers(){
+		return this.players;
+	}
+	public Player getPlayer(int index){
+		return this.players.get(index);
+	}
+	public Player getCurrentPlayer(){
+		return this.players.get(this.turnNumber % (this.players.size()));
 	}
 }

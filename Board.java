@@ -46,7 +46,7 @@ public class Board {
 	public int getRowsIndex(){
 		return this.rows - 1;
 	}
-	//Gets the total numbe of columns starting from 0
+	//Gets the total number of columns starting from 0
 	public int getColumnsIndex(){
 		return this.columns - 1;
 	}

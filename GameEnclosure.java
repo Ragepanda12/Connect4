@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,15 +10,14 @@ import javax.swing.JPanel;
 
 
 public class GameEnclosure extends JPanel{
-	private gameScreen board;
+	private GameScreen board;
 	private GameUI parentFrame;
-	public GameEnclosure(int columns, int rows, int players, int winningNumber, int gameMode,  GameUI parent){
+	public GameEnclosure(GameScreen game,  GameUI parent){
 		this.parentFrame = parent;
 		JPanel buttons = new JPanel();
+
 		JPanel gameBoard = new JPanel();
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		gameScreen game = new gameScreen(columns, rows, players, winningNumber, gameMode, this.parentFrame);
-		game.setVisible(true);
 		this.board = game;
 		JButton back = new JButton("Back to Main Menu");
 		back.addActionListener(new ActionListener(){
@@ -27,10 +28,17 @@ public class GameEnclosure extends JPanel{
 			}
 		});
 		buttons.add(back);
-		gameBoard.add(this.board);
+		buttons.setMaximumSize(buttons.getPreferredSize());
 		this.add(buttons);
-		this.add(gameBoard);
 		this.setVisible(true);
+
+	}
+	public GameScreen getGame(){
+		return this.board;
+	}
+	public void setGame(GameScreen g){
+		this.board = g;
+		this.add(board);
 		this.parentFrame.revalidate();
 	}
 }

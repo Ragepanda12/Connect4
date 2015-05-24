@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class GameUI extends JFrame{
+public class GameUI extends JFrame implements Runnable{
 	private final int WIDTH = 800;
 	private final int HEIGHT = WIDTH / 16 * 9;
 	private final Dimension gameDimensions = new Dimension(WIDTH, HEIGHT);
@@ -30,8 +30,8 @@ public class GameUI extends JFrame{
 	public static void main(String[] args){
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
-	            GameUI game = new GameUI();
-
+	            Thread thread1 = new Thread(new GameUI());
+	            thread1.start();
 	        }
 	    });
 	}
@@ -65,6 +65,14 @@ public class GameUI extends JFrame{
 		return this.defaultPlayer;
 	}
 	
+	public void run(){
+		this.pack();
+		this.setVisible(true);
+		this.single.setVisible(false);
+		this.multi.setVisible(false);
+		this.setContentPane(this.mainMenu);
+		this.mainMenu.setVisible(true);
+	}
 	private void init() {
 		this.setLocationRelativeTo(null);
 		this.setPreferredSize(gameDimensions);
@@ -76,21 +84,11 @@ public class GameUI extends JFrame{
 		SinglePlayerMenu single = new SinglePlayerMenu(this);
 		MultiPlayerMenu multi = new MultiPlayerMenu(this);
 		MainMenu main = new MainMenu(this);
+		GameEnclosure gameFrame = new GameEnclosure(null, this);
+		this.game = gameFrame;
 		this.single = single;
 		this.multi = multi;
 		this.mainMenu = main;
-    	gameScreen gamez = new gameScreen(7,6,2,4,1,this);
-		//this.add(main);
-		this.add(gamez);
-		this.pack();
-		this.setVisible(true);
-		this.single.setVisible(false);
-		this.multi.setVisible(false);
-		//this.setContentPane(this.mainMenu);
-		//this.mainMenu.setVisible(true);
-		this.mainMenu.setVisible(false);
-
-    	gamez.setVisible(true);
 	}
 	public SinglePlayerMenu getSinglePlayerMenu(){
 		return this.single;
