@@ -23,10 +23,4 @@ public class Player {
 	/*public Move getMove(){
 
 	}*/
-	public void setNextMove(Move m){
-		//if(this.latestInputMove != this.latestMove){
-			this.moves.add(m);
-			this.latestMove ++;
-		//}
-	}
 }

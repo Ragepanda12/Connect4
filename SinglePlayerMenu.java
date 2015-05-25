@@ -9,12 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 
@@ -29,7 +26,7 @@ public class SinglePlayerMenu extends JPanel{
 		
 		JPanel right = new JPanel();
 		right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-		JButton back = new JButton("Back to Main Menu");
+		AAButton back = new AAButton("Back to Main Menu");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
@@ -39,11 +36,11 @@ public class SinglePlayerMenu extends JPanel{
 		});
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		back.setAlignmentY(Component.CENTER_ALIGNMENT);
-		JLabel options = new JLabel("Singleplayer Mode");
+		AALabel options = new AALabel("Singleplayer Mode");
 		options.setAlignmentX(Component.CENTER_ALIGNMENT);
 		options.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
-		JLabel howHard = new JLabel("Please select the AI Difficulty");
+		AALabel howHard = new AALabel("Please select the AI Difficulty");
 		howHard.setAlignmentX(Component.CENTER_ALIGNMENT);
 		howHard.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
@@ -86,11 +83,11 @@ public class SinglePlayerMenu extends JPanel{
 		JPanel left = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 		String text = 
-			    "This is a placeholder text " +
-			    "it will hold the rules for connect 4 " +
-			    "and some explanations of options in the multiplayer menu. " +
+			    "Play Connect Four against an AI player in this mode.\n" +
+			    "How to play:  Click on a column to place a piece in that column.\n" +
+			    " Try to connect four or more pieces in a row vertically, horizontally, or diagonally to win\n" +
 			    "Refridgerator.";
-		JTextArea textArea = new JTextArea(1,1);
+		AATextArea textArea = new AATextArea(1,1);
 		textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textArea.setAlignmentY(Component.CENTER_ALIGNMENT);
 		textArea.setText(text);
@@ -98,7 +95,7 @@ public class SinglePlayerMenu extends JPanel{
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		left.add(textArea);
-		JButton start = new JButton("Start Game");
+		AAButton start = new AAButton("Start Game");
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
@@ -112,10 +109,12 @@ public class SinglePlayerMenu extends JPanel{
 					if(agree == 0){
 						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 2, parentFrame);
 						setVisible(false);
+						parentFrame.getGameScreen().remove(1);
 						parentFrame.getGameScreen().setGame(game);
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();
 						parentFrame.getGameScreen().setVisible(true);
+						parentFrame.repaint();
 					}
 				}
 				else{	

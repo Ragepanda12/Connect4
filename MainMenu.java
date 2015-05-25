@@ -1,30 +1,43 @@
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
 public class MainMenu extends JPanel{
 	//fields
 	private final GameUI parentFrame;
+	private JPanel bottomHalf;
+	private boolean hasResume;
 	//Constructor
 	public MainMenu(GameUI parent){
 		this.parentFrame = parent;
+		this.hasResume = false;
 		GridLayout grid = new GridLayout(2,1);
 		this.setLayout(grid);
 		JPanel topHalf = new JPanel();
 		JPanel bottomHalf = new JPanel();
-		JLabel welcome = new JLabel("Welcome to Connect Four!");
+		this.bottomHalf = bottomHalf;
+		AALabel welcome = new AALabel("Welcome to Connect Four!"){
+            @Override
+            public void paintComponent(Graphics g) {
+                Graphics2D graphics2d = (Graphics2D) g;
+                graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                super.paintComponent(g);
+            }
+        };
 		welcome.setFont(new Font("Serif", Font.BOLD, 20));
-		JButton Singleplayer = new JButton("Singleplayer");
+		AAButton Singleplayer = new AAButton("Singleplayer");
 		Singleplayer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
@@ -34,7 +47,7 @@ public class MainMenu extends JPanel{
 				
 			}
 		});
-		JButton Multiplayer = new JButton("Multiplayer");
+		AAButton Multiplayer = new AAButton("Multiplayer");
 		Multiplayer.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
@@ -59,5 +72,14 @@ public class MainMenu extends JPanel{
 		this.add(bottomHalf);
 		this.setVisible(false);
 	}
-
+	public void addButton(AAButton n){
+		if(this.hasResume == false){
+			n.setAlignmentX(Component.CENTER_ALIGNMENT);
+			n.setAlignmentY(Component.CENTER_ALIGNMENT);
+			this.bottomHalf.add(Box.createRigidArea(new Dimension(10,50)),0);
+			this.bottomHalf.add(n, 0);
+			this.revalidate();
+			this.hasResume = true;
+		}
+	}
 }

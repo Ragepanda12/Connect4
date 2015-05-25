@@ -10,12 +10,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
 
@@ -38,7 +35,7 @@ public class MultiPlayerMenu extends JPanel{
 		
 		JPanel right = new JPanel();
 		right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
-		JButton back = new JButton("Back to Main Menu");
+		AAButton back = new AAButton("Back to Main Menu");
 		back.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				setVisible(false);
@@ -48,13 +45,13 @@ public class MultiPlayerMenu extends JPanel{
 		});
 		back.setAlignmentX(Component.CENTER_ALIGNMENT);
 		back.setAlignmentY(Component.CENTER_ALIGNMENT);
-		JLabel options = new JLabel("Multiplayer Mode");
+		AALabel options = new AALabel("Multiplayer Mode");
 		options.setAlignmentX(Component.CENTER_ALIGNMENT);
 		options.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 		
-		JLabel numrows = new JLabel("Number of Rows");
-		final JLabel numGameRows = new JLabel(String.valueOf(inputRows) + " (Max 20.)");
+		AALabel numrows = new AALabel("Number of Rows");
+		final AALabel numGameRows = new AALabel(String.valueOf(inputRows) + " (Max 20.)");
 	    
 	    numrows.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numrows.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -64,7 +61,7 @@ public class MultiPlayerMenu extends JPanel{
 	    JPanel rowButtons = new JPanel();
 	    rowButtons.setLayout(new FlowLayout());
 	    
-	    JButton plusRow = new JButton("+");
+	    AAButton plusRow = new AAButton("+");
 	    plusRow.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(inputRows < 20){
@@ -74,7 +71,7 @@ public class MultiPlayerMenu extends JPanel{
 				}
 			}
 		});
-	    JButton minusRow = new JButton("-");
+	    AAButton minusRow = new AAButton("-");
 	    minusRow.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
 	    		if(inputRows > 1){
@@ -99,13 +96,13 @@ public class MultiPlayerMenu extends JPanel{
 	    JPanel sizeBoardColumn = new JPanel();
 	    sizeBoardColumn.setLayout(new GridLayout(2,2));
 	    
-		JLabel numCol = new JLabel("Number of Columns");
-		final JLabel numGameCols= new JLabel(String.valueOf(inputColumns) + " (Max 20.)");
+		AALabel numCol = new AALabel("Number of Columns");
+		final AALabel numGameCols= new AALabel(String.valueOf(inputColumns) + " (Max 20.)");
 	    
 		JPanel columnButtons = new JPanel();
 		columnButtons.setLayout(new FlowLayout());
 		
-	    JButton plusCol = new JButton("+");
+	    AAButton plusCol = new AAButton("+");
 	    plusCol.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(inputColumns < 20){
@@ -115,7 +112,7 @@ public class MultiPlayerMenu extends JPanel{
 				}
 			}
 		});
-	    JButton minusCol = new JButton("-");
+	    AAButton minusCol = new AAButton("-");
 	    minusCol.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
 	    		if(inputColumns > 1){
@@ -141,13 +138,13 @@ public class MultiPlayerMenu extends JPanel{
 	    
 	    JPanel numPlayers = new JPanel();
 	    numPlayers.setLayout(new GridLayout(2,2));
-	    JLabel players = new JLabel("Number of Players");
-	    final JLabel numplay = new JLabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    AALabel players = new AALabel("Number of Players");
+	    final AALabel numplay = new AALabel(String.valueOf(inputPlayers) + " (Max 8.)");
 	    
 	    JPanel playerButtons = new JPanel();
 	    playerButtons.setLayout(new FlowLayout());
 	    
-	    JButton plusPlay = new JButton("+");
+	    AAButton plusPlay = new AAButton("+");
 	    plusPlay.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(inputPlayers < 8){
@@ -157,7 +154,7 @@ public class MultiPlayerMenu extends JPanel{
 				}
 			}
 		});
-	    JButton minusPlay = new JButton("-");
+	    AAButton minusPlay = new AAButton("-");
 	    minusPlay.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
 	    		if(inputPlayers > 1){
@@ -177,10 +174,10 @@ public class MultiPlayerMenu extends JPanel{
 	    
 	    JPanel victoryPoints = new JPanel();
 	    victoryPoints.setLayout(new GridLayout(2,2));
-	    JLabel declaration = new JLabel("Winning Connection Number");
-	    final JLabel numWin = new JLabel(String.valueOf(winningNumber) + " (Max 10.)");
+	    AALabel declaration = new AALabel("Winning Connection Number");
+	    final AALabel numWin = new AALabel(String.valueOf(winningNumber) + " (Max 10.)");
 	    
-	    JButton plusWin = new JButton("+");
+	    AAButton plusWin = new AAButton("+");
 	    plusWin.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(winningNumber < 10){
@@ -190,7 +187,7 @@ public class MultiPlayerMenu extends JPanel{
 				}
 			}
 		});
-	    JButton minusWin = new JButton("-");
+	    AAButton minusWin = new AAButton("-");
 	    minusWin.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
 	    		if(winningNumber > 1){
@@ -225,7 +222,7 @@ public class MultiPlayerMenu extends JPanel{
 				+ "Set up to 8 players in a board up to 20 columns x 20 rows."
 			    + "Alternatively, try new strategies in Connect 5, or even Connect 6! Anything goes, up to Connect 10."
 				;
-		JTextArea textArea = new JTextArea(1,1);
+		AATextArea textArea = new AATextArea(1,1);
 		textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textArea.setAlignmentY(Component.CENTER_ALIGNMENT);
 		textArea.setText(text);
@@ -233,7 +230,7 @@ public class MultiPlayerMenu extends JPanel{
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		left.add(textArea);
-		JButton start = new JButton("Start Game");
+		AAButton start = new AAButton("Start Game");
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 
@@ -247,6 +244,7 @@ public class MultiPlayerMenu extends JPanel{
 					if(agree == 0){
 						GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame);
 						setVisible(false);
+						parentFrame.getGameScreen().remove(1);
 						parentFrame.getGameScreen().setGame(game);
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();
@@ -264,7 +262,7 @@ public class MultiPlayerMenu extends JPanel{
 			}
 		});
 		
-		JButton defaults = new JButton("Default Setting");
+		AAButton defaults = new AAButton("Default Setting");
 		defaults.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				inputRows = parentFrame.getDefaultRow();

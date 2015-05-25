@@ -56,6 +56,7 @@ public class Game{
 	public Player getCurrentPlayer(){
 		return this.players.get(this.turnNumber % (this.players.size()));
 	}
+	/*Currently Broken.
 	public Player runAsciiGame(){
 		int player = 0;
 		Player currentPlayer = this.players.get(player);
@@ -87,5 +88,5 @@ public class Game{
 			currentPlayer = this.players.get(player);
 		}
 		return currentPlayer;
-	}
+	}*/
 }

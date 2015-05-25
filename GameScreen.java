@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,8 +21,10 @@ public class GameScreen extends JPanel  implements MouseListener{
 	private int coinRadius;
 	private final int PADDING = 25;
 	private Move nextMove;
+	private boolean gameWon;
 	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent){
 		super.addMouseListener(this);
+		this.gameWon = false;
 		this.numCols = column;
 		this.numRows = row;
 		this.players = players;
@@ -29,13 +32,17 @@ public class GameScreen extends JPanel  implements MouseListener{
 		this.gameState = new Game(column, row, players, winning, gameMode);
 		this.parentFrame = parent;
 		xIncr = (parent.getWidth() - PADDING *2)/numCols;
-		System.out.println(getWidth());
 		yIncr = ((parent.getHeight()*4/5)/numRows);
 		coinRadius = (int) (yIncr/1.5);
+		repaint();
+	}
+	public Game getGameState(){
+		return this.gameState;
 	}
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
 		super.paintComponents(g);
 		//Make Grid
 		for(int i=0; i<numCols;i++){
@@ -43,6 +50,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		}
 	}
 	public void drawCol(Graphics g2d, int index, Color Background){
+		((Graphics2D) g2d).setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Background);
 		int xPos = PADDING + (index * xIncr);
 		g2d.fillRect(xPos, 0, xIncr, getHeight());
@@ -98,28 +106,30 @@ public class GameScreen extends JPanel  implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-	/*public void endGame(ArrayList<Spot> winning){
-		while(true){
-			
-		}
-	}*/
+
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int xPos = e.getX();
-		int cPos = 0;
-		while(xPos> PADDING){
-			cPos++;
-			xPos -= xIncr;
-		}
-		if(cPos > 0 && cPos <= numCols){
-			ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
-			//System.out.println(cPos);
-			drawCol(this.getGraphics(), cPos -1, Color.BLUE);
-			if(winning.size() >= 4){
-				//endGame(winning);
+		if(this.gameWon == false){
+			int xPos = e.getX();
+			int cPos = 0;
+			while(xPos> PADDING){
+				cPos++;
+				xPos -= xIncr;
 			}
-		}else{
-			System.out.println("padding");
+			if(cPos > 0 && cPos <= numCols){
+				ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
+				this.parentFrame.getGameScreen().setTurnText();
+				//System.out.println(cPos);
+				drawCol(this.getGraphics(), cPos -1, Color.BLUE);
+				if(winning != null && winning.size() >= 4){
+					this.gameWon = true;
+				}
+			}else{
+				System.out.println("padding");
+			}
+		}
+		else{
+			//No more moves if someone wins
 		}
 	}
 
