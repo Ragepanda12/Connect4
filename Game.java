@@ -7,9 +7,11 @@ public class Game{
 	private Board gameBoard;
 	private ArrayList<Player> players;
 	private int turnNumber;
+	private int gameMode;
 	//Constructor
 	public Game(int columns, int rows, int players, int winningNumber, int gameMode){
 		this.players = new ArrayList<Player>();
+		this.gameMode = gameMode;
 		if(gameMode == 1){
 			this.gameBoard = new Board(columns , rows ,winningNumber);
 			Player red = new Player(1);
@@ -29,6 +31,9 @@ public class Game{
 		}
 	}
 	//Method
+	public int getGameMode(){
+		return this.gameMode;
+	}
 	public ArrayList<Spot> setMove(Move m){
 
 		Player currentPlayer = this.players.get(this.turnNumber % this.players.size());
@@ -40,7 +45,19 @@ public class Game{
 		}
 		return win;
 	}
-
+	public ArrayList<Spot> setAIMove(){
+		Player currentPlayer = this.players.get(this.turnNumber % this.players.size());
+		Spot s = this.gameBoard.addPiece(currentPlayer, currentPlayer.getMove().getColumn());
+		ArrayList<Spot> win = null;
+		if(s != null){
+			win = this.gameBoard.hasConnectFour(currentPlayer, s);
+			this.turnNumber ++;
+		}
+		if(win == null || win.size() < 4){
+			win.add(s);
+		}
+		return win;
+	}
 	public Board getGameBoard(){
 		return this.gameBoard;
 	}

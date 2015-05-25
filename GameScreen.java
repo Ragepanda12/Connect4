@@ -118,14 +118,26 @@ public class GameScreen extends JPanel  implements MouseListener{
 			}
 			if(cPos > 0 && cPos <= numCols){
 				ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
-				this.parentFrame.getGameScreen().setTurnText();
+				this.parentFrame.getGameScreen().incrementTurnText();
 				//System.out.println(cPos);
 				drawCol(this.getGraphics(), cPos -1, Color.BLUE);
 				if(winning != null && winning.size() >= 4){
 					this.gameWon = true;
 				}
+				
+				if(this.gameState.getGameMode() == 1){
+					winning = this.gameState.setAIMove();
+					if(winning.size() == 1){
+						cPos = winning.get(0).getX();
+					}
+					drawCol(this.getGraphics(), cPos, Color.BLUE);
+					if(winning != null && winning.size() >= 4){
+						this.gameWon = true;
+					}
+				}
+
 			}else{
-				System.out.println("padding");
+			//	System.out.println("padding");
 			}
 		}
 		else{

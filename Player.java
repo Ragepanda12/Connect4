@@ -20,7 +20,8 @@ public class Player {
 	public int getColor(){
 		return this.playerColor;
 	}
-	/*public Move getMove(){
-
-	}*/
+	public Move getMove(){
+		Move m = null;
+		return m;
+	}
 }

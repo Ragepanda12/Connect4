@@ -15,7 +15,8 @@ public class GameEnclosure extends JPanel{
 		this.parentFrame = parent;
 		JPanel buttons = new JPanel();
 		JPanel gameBoard = new JPanel();
-		AALabel currentTurn = new AALabel("Turn: 0");
+		AALabel currentTurnText = new AALabel("Current Turn: ");
+		AALabel currentTurn = new AALabel("0         ");
 		this.turnCounter = currentTurn;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.board = game;
@@ -40,6 +41,7 @@ public class GameEnclosure extends JPanel{
 		});
 		buttons.setLayout(new FlowLayout());
 		buttons.add(back);
+		buttons.add(currentTurnText);
 		buttons.add(this.turnCounter);
 		buttons.setMaximumSize(buttons.getPreferredSize());
 		this.add(buttons);
@@ -49,8 +51,11 @@ public class GameEnclosure extends JPanel{
 	public GameScreen getGame(){
 		return this.board;
 	}
-	public void setTurnText(){
-		this.turnCounter.setText("Turn: " + this.board.getGameState().getTurnNumber());
+	public void incrementTurnText(){
+		this.turnCounter.setText(String.valueOf(this.board.getGameState().getTurnNumber()));
+	}
+	public void setTurnText(String m){
+		this.turnCounter.setText(m);
 	}
 	public void setGame(GameScreen g){
 		this.board = g;

@@ -8,6 +8,7 @@ public class AI extends Player{
 	}
 	//Method
 	//10/10 strat
+	@Override
 	public Move getMove(){
 		int toPut = 0;
 		if(!(b.getBoard()[toPut][0].getState() == 0)){
