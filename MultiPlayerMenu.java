@@ -147,9 +147,9 @@ public class MultiPlayerMenu extends JPanel{
 	    AAButton plusPlay = new AAButton("+");
 	    plusPlay.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				if(inputPlayers < 8){
+				if(inputPlayers < 7){
 					inputPlayers ++;
-					numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+					numplay.setText(String.valueOf(inputPlayers) + " (Max 7.)");
 					parentFrame.repaint();
 				}
 			}
@@ -159,7 +159,7 @@ public class MultiPlayerMenu extends JPanel{
 	    	public void actionPerformed(ActionEvent e){
 	    		if(inputPlayers > 1){
 	    			inputPlayers --;
-	    			numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+	    			numplay.setText(String.valueOf(inputPlayers) + " (Max 7.)");
 	    			parentFrame.repaint();
 	    		}
 	    	}
@@ -218,9 +218,9 @@ public class MultiPlayerMenu extends JPanel{
 		JPanel left = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
 		String text = 
-			    "Pit your Connect 4 skills against your friends in multiplayer mode!"
-				+ "Set up to 8 players in a board up to 20 columns x 20 rows."
-			    + "Alternatively, try new strategies in Connect 5, or even Connect 6! Anything goes, up to Connect 10."
+			    "Pit your Connect 4 skills against your friends in multiplayer mode!\n"
+				+ "Set up to 8 players in a board up to 20 columns x 20 rows.\n"
+			    + "Alternatively, try new strategies in Connect 5, or even Connect 6! Anything goes, up to Connect 10.\n"
 				;
 		AATextArea textArea = new AATextArea(1,1);
 		textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -242,7 +242,7 @@ public class MultiPlayerMenu extends JPanel{
 							JOptionPane.YES_NO_OPTION
 					);
 					if(agree == 0){
-						GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame);
+						GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame, 0);
 						setVisible(false);
 						parentFrame.getGameScreen().remove(1);
 						parentFrame.getGameScreen().setGame(game);
@@ -252,7 +252,7 @@ public class MultiPlayerMenu extends JPanel{
 					}
 				}
 				else{	
-					GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame);
+					GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame, 0);
 					setVisible(false);
 					parentFrame.getGameScreen().setGame(game);
 					parentFrame.setContentPane(parentFrame.getGameScreen());
@@ -271,7 +271,7 @@ public class MultiPlayerMenu extends JPanel{
 				winningNumber = parentFrame.getDefaultWin();
 				numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
 				numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
-				numplay.setText(String.valueOf(inputPlayers) + " (Max 8.)");
+				numplay.setText(String.valueOf(inputPlayers) + " (Max 7.)");
 				numWin.setText(String.valueOf(winningNumber) + " (Max 10.)");
 				parentFrame.repaint();
 			}

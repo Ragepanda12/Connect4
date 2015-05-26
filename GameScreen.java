@@ -22,14 +22,14 @@ public class GameScreen extends JPanel  implements MouseListener{
 	private final int PADDING = 25;
 	private Move nextMove;
 	private boolean gameWon;
-	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent){
+	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent, int ai){
 		super.addMouseListener(this);
 		this.gameWon = false;
 		this.numCols = column;
 		this.numRows = row;
 		this.players = players;
 		this.winning = winning;
-		this.gameState = new Game(column, row, players, winning, gameMode);
+		this.gameState = new Game(column, row, players, winning, gameMode, ai);
 		this.parentFrame = parent;
 		xIncr = (parent.getWidth() - PADDING *2)/numCols;
 		yIncr = ((parent.getHeight()*4/5)/numRows);
@@ -80,7 +80,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 			else if(board[index][j].getState() == 7){
 				g2d.setColor(Color.LIGHT_GRAY);
 			}
-			else if(board[index][j].getState() == 8){
+			else if(board[index][j].getState() == -1){
 				g2d.setColor(Color.MAGENTA);
 			}
 			g2d.fillOval(xPos + (xIncr/2 -15), yPos, coinRadius, coinRadius);
@@ -109,7 +109,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(this.gameWon == false){
+		if(this.gameWon == false && !this.getGameState().boardIsFull()){
 			int xPos = e.getX();
 			int cPos = 0;
 			while(xPos> PADDING){
@@ -120,24 +120,34 @@ public class GameScreen extends JPanel  implements MouseListener{
 				ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
 				this.parentFrame.getGameScreen().incrementTurnText();
 				//System.out.println(cPos);
-				drawCol(this.getGraphics(), cPos -1, Color.BLUE);
-				if(winning != null && winning.size() >= 4){
-					this.gameWon = true;
-				}
+				if(winning != null){
+					drawCol(this.getGraphics(), cPos -1, Color.BLUE);
 				
-				if(this.gameState.getGameMode() == 1){
-					winning = this.gameState.setAIMove();
-					if(winning.size() == 1){
-						cPos = winning.get(0).getX();
-					}
-					drawCol(this.getGraphics(), cPos, Color.BLUE);
 					if(winning != null && winning.size() >= 4){
+						for(Spot s : winning){
+							this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+							drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+						}
 						this.gameWon = true;
 					}
+					
+					if(this.gameState.getGameMode() == 1){
+						winning = this.gameState.setAIMove();
+						if(winning.size() == 1){
+							cPos = winning.get(0).getX();
+							drawCol(this.getGraphics(), cPos, Color.BLUE);
+							//System.out.println(cPos);
+						}
+						if(winning != null && winning.size() >= 4){
+							for(Spot s : winning){
+								this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+								drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+							}
+							this.gameWon = true;
+						}
+					}
+					this.gameState.getGameBoard().printBoard();
 				}
-
-			}else{
-			//	System.out.println("padding");
 			}
 		}
 		else{

@@ -94,6 +94,7 @@ public class Board {
 		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasVertConnectFour(p, s);
 		}
+		
 		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasHoriConnectFour(p, s);
 		}
@@ -105,6 +106,9 @@ public class Board {
 		}
 		if(hasConnectFour.size() >= goal){
 			printWinning(hasConnectFour);
+		}
+		else{
+			hasConnectFour.clear();
 		}
 		return hasConnectFour;
 	}

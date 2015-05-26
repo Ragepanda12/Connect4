@@ -57,16 +57,10 @@ public class SinglePlayerMenu extends JPanel{
 	    hard.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    hard.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    
-	    JRadioButton random = new JRadioButton("Random");
-	    random.setMnemonic(KeyEvent.VK_B);
-	    random.setActionCommand("Random");
-	    random.setAlignmentX(Component.CENTER_ALIGNMENT);
-	    random.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    
-	    ButtonGroup group = new ButtonGroup();
+	    final ButtonGroup group = new ButtonGroup();
         group.add(easy);
         group.add(hard);
-        group.add(random);
 	    
 		right.add(options);
 		right.add(Box.createRigidArea(new Dimension(10, 100)));
@@ -74,7 +68,6 @@ public class SinglePlayerMenu extends JPanel{
 		right.add(Box.createRigidArea(new Dimension(10, 25)));
 		right.add(easy);
 		right.add(hard);
-		right.add(random);
 		right.add(Box.createRigidArea(new Dimension(10,50)));
 
 		right.add(Box.createRigidArea(new Dimension(10, 80)));
@@ -98,7 +91,14 @@ public class SinglePlayerMenu extends JPanel{
 		AAButton start = new AAButton("Start Game");
 		start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-
+				String AILevel = group.getSelection().getActionCommand();
+				int ai = 0;
+				if(AILevel.equals("Easy")){
+					ai = 1;
+				}
+				else if(AILevel.equals("Hard")){
+					ai = 2;
+				}
 				if(parentFrame.getGameScreen().getGame() != null){
 					int agree = JOptionPane.showConfirmDialog(
 							null,
@@ -107,7 +107,8 @@ public class SinglePlayerMenu extends JPanel{
 							JOptionPane.YES_NO_OPTION
 					);
 					if(agree == 0){
-						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame);
+
+						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
 						setVisible(false);
 						parentFrame.getGameScreen().setTurnText("0         ");
 						parentFrame.getGameScreen().remove(1);
@@ -119,7 +120,7 @@ public class SinglePlayerMenu extends JPanel{
 					}
 				}
 				else{	
-					GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame);
+					GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
 					setVisible(false);
 					parentFrame.getGameScreen().setGame(game);
 					parentFrame.setContentPane(parentFrame.getGameScreen());

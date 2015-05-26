@@ -10,6 +10,7 @@ public class AI extends Player{
 	//Fields
 	private Board b;
 	private ArrayList<ArrayList<Integer>> ratings;
+	private int level;
 
 
 	private static int MAX_COLS = 7;
@@ -19,10 +20,10 @@ public class AI extends Player{
 
 
 	//Constructor
-	public AI(String color, Board b){
+	public AI(int color, Board b, int level){
 		super(color);
 		this.b = b;
-
+		this.level = level;
 		//Init arraylist
 		ratings = new ArrayList<ArrayList<Integer>>();
 		for (int i = 0; i < MAX_COLS; i++) {
@@ -34,13 +35,13 @@ public class AI extends Player{
 
 	//Method
 	@Override
-	public int getMove(Scanner scanner){
+	public Move getMove(){
 		//System.out.println("last move is "+scanner.next());
 		//int requestedMove = Integer.parseInt(scanner.next());
 
 		int finalMove = 0;
 		//Select strategy
-		int strategy = 1; //Keep this at one for now
+		int strategy = this.level; //Keep this at one for now
 
 		if (strategy == 1) {
 			//random ai
@@ -53,8 +54,8 @@ public class AI extends Player{
 		} else {//strategy ==3
 			//harder ai if we get to it
 		}
-
-		return finalMove;
+		Move m = new Move(finalMove);
+		return m;
 
 	}
 
@@ -68,7 +69,7 @@ public class AI extends Player{
 		 */
 
 		//Declare Variables
-		Player opponent = new Player("red"); //Assuming opponent red.
+		Player opponent = new Player(1); //Assuming opponent red.
 											 //This is okay since we compare colours
 										     //to distinguish players
 		int x;
@@ -176,7 +177,7 @@ public class AI extends Player{
 		for (int i = 0; i < MAX_ROWS; i++) {
 			
 		
-			if (!(b.getBoard()[column][i].getState().equals("Blank"))) {  //Not Blank
+			if (!(b.getBoard()[column][i].getState() == 0)) {  //Not Blank
 				result = i-1;//available row is one above(-1)
 				isEmpty = false;
 				break;
@@ -235,7 +236,7 @@ public class AI extends Player{
 			toYPos = getRowsIndex();
 		}
 		while(yPos <= toYPos){
-			if(this.b.getBoard()[s.getX()][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[s.getX()][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.b.getBoard()[s.getX()][yPos]);
 				if(hasConnectFour.size() >= GOAL){
 					alreadyHasConnectFour = true;
@@ -269,7 +270,7 @@ public class AI extends Player{
 				return score;
 			}
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == p.getColor()){
 				score++;
 			} else {
 				break;
@@ -294,7 +295,7 @@ public class AI extends Player{
 				return score;
 			}
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
 				score++;
 			} else {
 				break;
@@ -320,7 +321,7 @@ public class AI extends Player{
 			}
 
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
 				score++;
 			} else {
 				break;
@@ -348,7 +349,7 @@ public class AI extends Player{
 				return score;
 			}
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
 				score++;
 			} else {
 				break;
@@ -379,7 +380,7 @@ public class AI extends Player{
 			}
 
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
 				score++;
 			} else {
 				break;
@@ -405,7 +406,7 @@ public class AI extends Player{
 		while (xPos < getColumnsIndex() && yPos <getRowsIndex()) {
 
 			//If a red piece is found
-			if(this.b.getBoard()[xPos][yPos].getState().equals(p.getColor())){
+			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
 				score++;
 				if((xPos > 6)||(yPos > 5)){
 					return score;

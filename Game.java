@@ -8,14 +8,16 @@ public class Game{
 	private ArrayList<Player> players;
 	private int turnNumber;
 	private int gameMode;
+	private int remainingSpace;
 	//Constructor
-	public Game(int columns, int rows, int players, int winningNumber, int gameMode){
+	public Game(int columns, int rows, int players, int winningNumber, int gameMode, int aiLevel){
 		this.players = new ArrayList<Player>();
 		this.gameMode = gameMode;
+		this.remainingSpace = columns * rows;
 		if(gameMode == 1){
 			this.gameBoard = new Board(columns , rows ,winningNumber);
 			Player red = new Player(1);
-			AI yellow = new AI(2, this.gameBoard);
+			AI yellow = new AI(2, this.gameBoard, aiLevel);
 			this.players.add(red);
 			this.players.add(yellow);
 			this.turnNumber = 0;
@@ -42,21 +44,28 @@ public class Game{
 		if(s != null){
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
 			this.turnNumber ++;
+			this.remainingSpace --;
 		}
 		return win;
 	}
 	public ArrayList<Spot> setAIMove(){
 		Player currentPlayer = this.players.get(this.turnNumber % this.players.size());
 		Spot s = this.gameBoard.addPiece(currentPlayer, currentPlayer.getMove().getColumn());
-		ArrayList<Spot> win = null;
+		ArrayList<Spot> win = new ArrayList<Spot>();
 		if(s != null){
+			System.out.println(win.size());
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
+			System.out.println(win.size());
 			this.turnNumber ++;
+			this.remainingSpace --;
 		}
-		if(win == null || win.size() < 4){
+		if(win.size() < 4){
 			win.add(s);
 		}
 		return win;
+	}
+	public boolean boardIsFull(){
+		return this.remainingSpace <= 0;
 	}
 	public Board getGameBoard(){
 		return this.gameBoard;
