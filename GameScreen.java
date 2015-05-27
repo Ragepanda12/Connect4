@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -19,7 +20,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 	private GameUI parentFrame;
 	private int xIncr, yIncr;
 	private int coinRadius;
-	private final int PADDING = 25;
+	private final int PADDING = 0;
 	private Move nextMove;
 	private boolean gameWon;
 	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent, int ai){
@@ -32,7 +33,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		this.gameState = new Game(column, row, players, winning, gameMode, ai);
 		this.parentFrame = parent;
 		xIncr = (parent.getWidth() - PADDING *2)/numCols;
-		yIncr = ((parent.getHeight()*4/5)/numRows);
+		yIncr = ((parent.getHeight()*9/10)/(numRows + 1));
 		coinRadius = (int) (yIncr/1.5);
 		repaint();
 	}
@@ -55,7 +56,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		int xPos = PADDING + (index * xIncr);
 		g2d.fillRect(xPos, 0, xIncr, getHeight());
 		Spot[][] board = this.gameState.getGameBoard().getBoard();
-		for(int j =0,yPos = PADDING; j< numRows;j++){
+		for(int j =0,yPos = this.yIncr; j< numRows;j++){
 			if(board[index][j].getState() == 0){
 				g2d.setColor(Color.WHITE);
 			}
@@ -118,35 +119,36 @@ public class GameScreen extends JPanel  implements MouseListener{
 			}
 			if(cPos > 0 && cPos <= numCols){
 				ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
-				this.parentFrame.getGameScreen().incrementTurnText();
-				//System.out.println(cPos);
 				if(winning != null){
 					drawCol(this.getGraphics(), cPos -1, Color.BLUE);
 				
-					if(winning != null && winning.size() >= 4){
+					if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
 						for(Spot s : winning){
 							this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
 							drawCol(this.getGraphics(), s.getX(), Color.BLUE);
 						}
 						this.gameWon = true;
+						//Player currentPlayer = this.gameState.getPreviousPlayer();
+						JOptionPane.showMessageDialog(this.parentFrame, "Eggs are not supposed to be green.");
 					}
-					
-					if(this.gameState.getGameMode() == 1){
-						winning = this.gameState.setAIMove();
-						if(winning.size() == 1){
-							cPos = winning.get(0).getX();
-							drawCol(this.getGraphics(), cPos, Color.BLUE);
-							//System.out.println(cPos);
-						}
-						if(winning != null && winning.size() >= 4){
-							for(Spot s : winning){
-								this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
-								drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+					if(this.gameWon != true){
+						if(this.gameState.getGameMode() == 1){
+							winning = this.gameState.setAIMove();
+							if(winning.size() == 1){
+								cPos = winning.get(0).getX();
+								drawCol(this.getGraphics(), cPos, Color.BLUE);
 							}
-							this.gameWon = true;
+							if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
+								for(Spot s : winning){
+									this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+									drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+								}
+								this.gameWon = true;
+								JOptionPane.showMessageDialog(this.parentFrame, "The AI Player won!");
+							}
 						}
 					}
-					this.gameState.getGameBoard().printBoard();
+					this.parentFrame.getGameScreen().incrementTurnText();
 				}
 			}
 		}

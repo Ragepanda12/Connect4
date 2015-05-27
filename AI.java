@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
@@ -47,10 +48,19 @@ public class AI extends Player{
 			//random ai
 			finalMove = random();
 		} else if (strategy == 2) {
+			//Sometimes defensive ai
+			Random rng = new Random();
+			int randomInt = rng.nextInt(20);
+			if(randomInt % 3 == 0){
+				finalMove = searchForMove();
+			}
+			else{
+				finalMove = random();
+			}
+		
+		} else if (strategy == 3){
 			//defensive ai
 			finalMove = searchForMove();
-		
-
 		} else {//strategy ==3
 			//harder ai if we get to it
 		}
@@ -437,7 +447,9 @@ public class AI extends Player{
 		int x = -1;
 		while(x == -1){
 			i = rand.nextInt() % n;
-			x = findFirstAvailableRow(i);
+			if(i > 0 && i < this.MAX_COLS){
+				x = findFirstAvailableRow(i);
+			}
 		}
 		return i;
 		

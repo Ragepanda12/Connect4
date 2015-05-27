@@ -260,4 +260,7 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	public int getWinningNumber(){
+		return this.goal;
+	}
 }
