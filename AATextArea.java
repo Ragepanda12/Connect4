@@ -4,9 +4,17 @@ import java.awt.RenderingHints;
 
 import javax.swing.JTextArea;
 
-
+/**
+ * Anti-Aliased extension of JTextAreas.
+ * @author Mendel/Lance/Carmen/Aaron
+ *
+ */
 public class AATextArea extends JTextArea{  
- 
+ /**
+  * Create a new Text area
+  * @param a is the number of rows in the JTextArea
+  * @param b is the number of columns in the JTextArea
+  */
 	  public AATextArea(int a, int b)
 	  {
 	    super(a, b);

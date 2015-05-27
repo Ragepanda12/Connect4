@@ -3,10 +3,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.JButton;
-
+/**
+ * Anti-Aliased extension of JButtons.
+ * @author Mendel/Lance/Carmen/Aaron
+ *
+ */
 
 public class AAButton extends JButton{  
- 
+		/**
+		 * Create a new Button
+		 * @param text is the text to be displayed on the button.
+		 */
 	  public AAButton(String text)
 	  {
 	    super(text);

@@ -1,17 +1,25 @@
 import java.util.ArrayList;
 
-
+/**
+ * Backend representation of board state in Connect Four.
+ * @author Mendel/Lance/Carmen/Aaron
+ *
+ */
 public class Board {
 	//Fields
 	private Spot[][] board;
 	private int columns;
 	private int rows;
 	private int goal;
-	
+	/**
+	 * Create a new game board.
+	 * 2d array stores the 'board', (0,0) is in the top left
+	 * @param column is the number of columns in the game board.
+	 * @param rows is the number of rows in the game board.
+	 * @param goal is the number of connected pieces on the game board required for a win.
+	 */
 	//Constructor
 	public Board(int column, int rows, int goal){
-		//2d array stores the board, (0,0) is in the top left
-		//Coord of a spot is this.board[toReturn.getY()][toReturn.getX()]
 		this.board = new Spot[column][rows];
 		int columns = 0;
 		int spot = 0;
@@ -25,33 +33,47 @@ public class Board {
 			columns ++;
 
 		}
-		//Yes.
 		this.columns = column;
 		this.rows = rows;
 		this.goal = goal;
 	}
 	//Methods
+	/**
+	 * Getter function for 2d array holding the game pieces
+	 * @return the 2d array of the game
+	 */
 	public Spot[][] getBoard(){
 		return this.board;
 	}
-	//Gets the total number of columns
+	/**
+	 * Getter function for number of columns on game board
+	 * @return the number of columns as an int
+	 */
 	public int getColumns(){
 		return this.columns;
 	}
-	//Gets the total number of rows
+	/**
+	 * Getter function for the number of rows on the game board
+	 * @return the number of rows as an int
+	 */
 	public int getRows(){
 		return this.rows;
 	}
-	//Gets the total number of rows starting from 0
+	/**
+	 * Getter function for the number of rows on the game board as an array index 
+	 * i.e it returns the total number of rows - 1
+	 * @return The total number of rows - 1 as an int
+	 */
 	public int getRowsIndex(){
 		return this.rows - 1;
 	}
-	//Gets the total number of columns starting from 0
+	/**
+	 * Getter function for the number of columns on the game board as an array index 
+	 * i.e it returns the total number of columns - 1
+	 * @return The total number of columns - 1 as an int
+	 */
 	public int getColumnsIndex(){
 		return this.columns - 1;
-	}
-	public Spot[] getSpecificColumnIndex(int column){
-		return this.board[column];
 	}
 	public void printBoard(){
 		int spot = 0;

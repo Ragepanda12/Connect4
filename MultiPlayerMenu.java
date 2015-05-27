@@ -51,7 +51,7 @@ public class MultiPlayerMenu extends JPanel{
 
 		
 		AALabel numrows = new AALabel("Number of Rows");
-		final AALabel numGameRows = new AALabel(String.valueOf(inputRows) + " (Max 20.)");
+		final AALabel numGameRows = new AALabel(String.valueOf(inputRows) + " (Min/Max 6/20.)");
 	    
 	    numrows.setAlignmentX(Component.LEFT_ALIGNMENT);
 	    numrows.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -66,7 +66,7 @@ public class MultiPlayerMenu extends JPanel{
 			public void actionPerformed(ActionEvent e){
 				if(inputRows < 20){
 					inputRows ++;
-					numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
+					numGameRows.setText(String.valueOf(inputRows) + " (Min/Max 6/20.)");
 					parentFrame.repaint();
 				}
 			}
@@ -74,9 +74,9 @@ public class MultiPlayerMenu extends JPanel{
 	    AAButton minusRow = new AAButton("-");
 	    minusRow.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
-	    		if(inputRows > 1){
+	    		if(inputRows > 6){
 	    			inputRows --;
-	    			numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
+	    			numGameRows.setText(String.valueOf(inputRows) + " (Min/Max 6/20.)");
 	    			parentFrame.repaint();
 	    		}
 	    	}
@@ -97,7 +97,7 @@ public class MultiPlayerMenu extends JPanel{
 	    sizeBoardColumn.setLayout(new GridLayout(2,2));
 	    
 		AALabel numCol = new AALabel("Number of Columns");
-		final AALabel numGameCols= new AALabel(String.valueOf(inputColumns) + " (Max 20.)");
+		final AALabel numGameCols= new AALabel(String.valueOf(inputColumns) + " (Min/Max 7/20.)");
 	    
 		JPanel columnButtons = new JPanel();
 		columnButtons.setLayout(new FlowLayout());
@@ -107,7 +107,7 @@ public class MultiPlayerMenu extends JPanel{
 			public void actionPerformed(ActionEvent e){
 				if(inputColumns < 20){
 					inputColumns ++;
-					numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+					numGameCols.setText(String.valueOf(inputColumns) + " (Min/Max 7/20.)");
 					parentFrame.repaint();
 				}
 			}
@@ -115,9 +115,9 @@ public class MultiPlayerMenu extends JPanel{
 	    AAButton minusCol = new AAButton("-");
 	    minusCol.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent e){
-	    		if(inputColumns > 1){
+	    		if(inputColumns > 7){
 	    			inputColumns --;
-	    			numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+	    			numGameCols.setText(String.valueOf(inputColumns) + " (Min/Max 7/20.)");
 	    			parentFrame.repaint();
 	    		}
 	    	}
@@ -139,7 +139,7 @@ public class MultiPlayerMenu extends JPanel{
 	    JPanel numPlayers = new JPanel();
 	    numPlayers.setLayout(new GridLayout(2,2));
 	    AALabel players = new AALabel("Number of Players");
-	    final AALabel numplay = new AALabel(String.valueOf(inputPlayers) + " (Max 8.)");
+	    final AALabel numplay = new AALabel(String.valueOf(inputPlayers) + " (Max 7.)");
 	    
 	    JPanel playerButtons = new JPanel();
 	    playerButtons.setLayout(new FlowLayout());
@@ -269,8 +269,8 @@ public class MultiPlayerMenu extends JPanel{
 				inputColumns = parentFrame.getDefaultCol();
 				inputPlayers = parentFrame.getDefaultPlayer();
 				winningNumber = parentFrame.getDefaultWin();
-				numGameRows.setText(String.valueOf(inputRows) + " (Max 20.)");
-				numGameCols.setText(String.valueOf(inputColumns) + " (Max 20.)");
+				numGameRows.setText(String.valueOf(inputRows) + " (Min/Max 6/20.)");
+				numGameCols.setText(String.valueOf(inputColumns) + " (Min/Max 7/20.)");
 				numplay.setText(String.valueOf(inputPlayers) + " (Max 7.)");
 				numWin.setText(String.valueOf(winningNumber) + " (Max 10.)");
 				parentFrame.repaint();

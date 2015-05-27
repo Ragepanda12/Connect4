@@ -3,10 +3,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
-
+/**
+ * Anti-Aliased extension of JLabels.
+ * @author Mendel/Lance/Carmen/Aaron
+ *
+ */
 
 public class AALabel extends JLabel{  
- 
+/**
+ * Create a new Label 
+ * @param text is the text of the new Label
+ */
 	  public AALabel(String text)
 	  {
 	    super(text);
