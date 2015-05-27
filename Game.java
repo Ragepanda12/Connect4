@@ -44,8 +44,11 @@ public class Game{
 		if(s != null){
 			currentPlayer.addMove(m);
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
-			this.turnNumber ++;
 			this.remainingSpace --;
+		}
+		if(win.size() < this.gameBoard.getWinningNumber()){
+			System.out.println("Player adding turn");
+			this.turnNumber ++;
 		}
 		return win;
 	}
@@ -58,10 +61,11 @@ public class Game{
 			System.out.println(win.size());
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
 			System.out.println(win.size());
-			this.turnNumber ++;
 			this.remainingSpace --;
 		}
-		if(win.size() < 4){
+		if(win.size() < this.gameBoard.getWinningNumber()){
+			System.out.println("Ai adding turn");
+			this.turnNumber ++;
 			win.add(s);
 		}
 		return win;

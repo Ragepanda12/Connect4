@@ -51,6 +51,12 @@ public class SinglePlayerMenu extends JPanel{
 	    easy.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    easy.setAlignmentY(Component.CENTER_ALIGNMENT);
 		
+	    JRadioButton medium = new JRadioButton("Medium");
+	    medium.setMnemonic(KeyEvent.VK_B);
+	    medium.setActionCommand("Medium");
+	    medium.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    medium.setAlignmentY(Component.CENTER_ALIGNMENT);
+	    
 	    JRadioButton hard = new JRadioButton("Hard");
 	    hard.setMnemonic(KeyEvent.VK_B);
 	    hard.setActionCommand("Hard");
@@ -60,6 +66,7 @@ public class SinglePlayerMenu extends JPanel{
 	    
 	    final ButtonGroup group = new ButtonGroup();
         group.add(easy);
+        group.add(medium);
         group.add(hard);
 	    
 		right.add(options);
@@ -67,6 +74,7 @@ public class SinglePlayerMenu extends JPanel{
 		right.add(howHard);
 		right.add(Box.createRigidArea(new Dimension(10, 25)));
 		right.add(easy);
+		right.add(medium);
 		right.add(hard);
 		right.add(Box.createRigidArea(new Dimension(10,50)));
 
@@ -79,7 +87,7 @@ public class SinglePlayerMenu extends JPanel{
 			    "Play Connect Four against an AI player in this mode.\n" +
 			    "How to play:  Click on a column to place a piece in that column.\n" +
 			    " Try to connect four or more pieces in a row vertically, horizontally, or diagonally to win\n" +
-			    "Refridgerator.";
+			    "Click on a column to add a piece to that column.";
 		AATextArea textArea = new AATextArea(1,1);
 		textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
 		textArea.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -96,8 +104,11 @@ public class SinglePlayerMenu extends JPanel{
 				if(AILevel.equals("Easy")){
 					ai = 1;
 				}
-				else if(AILevel.equals("Hard")){
+				else if(AILevel.equals("Medium")){
 					ai = 2;
+				}
+				else if(AILevel.equals("Hard")){
+					ai = 3;
 				}
 				if(parentFrame.getGameScreen().getGame() != null){
 					int agree = JOptionPane.showConfirmDialog(

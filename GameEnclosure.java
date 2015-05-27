@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -14,9 +15,8 @@ public class GameEnclosure extends JPanel{
 	public GameEnclosure(GameScreen game,  GameUI parent){
 		this.parentFrame = parent;
 		JPanel buttons = new JPanel();
-		JPanel gameBoard = new JPanel();
 		AALabel currentTurnText = new AALabel("Current Turn: ");
-		AALabel currentTurn = new AALabel("0         ");
+		AALabel currentTurn = new AALabel("1 :Red                    ");
 		this.turnCounter = currentTurn;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.board = game;
@@ -33,8 +33,7 @@ public class GameEnclosure extends JPanel{
 						setVisible(false);
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();
-						parentFrame.getGameScreen().setVisible(true);
-						
+						parentFrame.getGameScreen().setVisible(true);		
 					}
 				});
 			}
@@ -52,6 +51,7 @@ public class GameEnclosure extends JPanel{
 		buttons.add(this.turnCounter);
 		buttons.add(undo);
 		buttons.setMaximumSize(buttons.getPreferredSize());
+		
 		this.add(buttons);
 		this.setVisible(true);
 
@@ -60,14 +60,37 @@ public class GameEnclosure extends JPanel{
 		return this.board;
 	}
 	public void incrementTurnText(){
-		this.turnCounter.setText(String.valueOf(this.board.getGameState().getTurnNumber()));
+		Player currentPlayer = this.board.getGameState().getCurrentPlayer();
+		String color = "";
+		if(currentPlayer.getColor() == 1){
+			color = "Red";
+		}
+		else if(currentPlayer.getColor()  == 2){
+			color = "Yellow";
+		}
+		else if(currentPlayer.getColor()  == 3){
+			color = "Green";
+		}
+		else if(currentPlayer.getColor()  == 4){
+			color = "Black";
+		}
+		else if(currentPlayer.getColor()  == 5){
+			color = "Cyan";
+		}
+		else if(currentPlayer.getColor()  == 6){
+			color = "Pink";
+		}
+		else if(currentPlayer.getColor()  == 7){
+			color = "Grey";
+		}
+		this.turnCounter.setText(String.valueOf(this.board.getGameState().getTurnNumber() + 1) + " :" + color);
 	}
 	public void setTurnText(String m){
 		this.turnCounter.setText(m);
 	}
 	public void setGame(GameScreen g){
 		this.board = g;
-		this.add(board);
+		this.add(board, 0);
 		this.parentFrame.revalidate();
 	}
 }
