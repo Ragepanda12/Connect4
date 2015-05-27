@@ -24,4 +24,10 @@ public class Player {
 		Move m = null;
 		return m;
 	}
+	public void addMove(Move m){
+		this.moves.add(m);
+	}
+	public ArrayList<Move> getMoves(){
+		return this.moves;
+	}
 }

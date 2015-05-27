@@ -130,23 +130,23 @@ public class GameScreen extends JPanel  implements MouseListener{
 						}
 						this.gameWon = true;
 					}
-					
-					if(this.gameState.getGameMode() == 1){
-						winning = this.gameState.setAIMove();
-						if(winning.size() == 1){
-							cPos = winning.get(0).getX();
-							drawCol(this.getGraphics(), cPos, Color.BLUE);
-							//System.out.println(cPos);
-						}
-						if(winning != null && winning.size() >= 4){
-							for(Spot s : winning){
-								this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
-								drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+					if(this.gameWon != true){
+						if(this.gameState.getGameMode() == 1){
+							winning = this.gameState.setAIMove();
+							if(winning.size() == 1){
+								cPos = winning.get(0).getX();
+								drawCol(this.getGraphics(), cPos, Color.BLUE);
+								//System.out.println(cPos);
 							}
-							this.gameWon = true;
+							if(winning != null && winning.size() >= 4){
+								for(Spot s : winning){
+									this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+									drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+								}
+								this.gameWon = true;
+							}
 						}
 					}
-					this.gameState.getGameBoard().printBoard();
 				}
 			}
 		}

@@ -42,6 +42,7 @@ public class Game{
 		Spot s = this.gameBoard.addPiece(currentPlayer, m.getColumn() - 1);
 		ArrayList<Spot> win = null;
 		if(s != null){
+			currentPlayer.addMove(m);
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
 			this.turnNumber ++;
 			this.remainingSpace --;
@@ -53,6 +54,7 @@ public class Game{
 		Spot s = this.gameBoard.addPiece(currentPlayer, currentPlayer.getMove().getColumn());
 		ArrayList<Spot> win = new ArrayList<Spot>();
 		if(s != null){
+			currentPlayer.addMove(new Move(s.getX()));
 			System.out.println(win.size());
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
 			System.out.println(win.size());
@@ -64,6 +66,20 @@ public class Game{
 		}
 		return win;
 	}
+	public int undoMove(){
+		if(this.turnNumber > 0){
+			this.turnNumber --;
+			int index = 0;
+			while(this.gameBoard.getBoard()[getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn()][index].getState() == 0){
+				index ++;
+			}
+			this.gameBoard.getBoard()[getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn()][index].changeState(0);
+		}
+		return getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn();
+	}
+	/*public void redoMove(){
+		
+	}*/
 	public boolean boardIsFull(){
 		return this.remainingSpace <= 0;
 	}
@@ -81,6 +97,13 @@ public class Game{
 	}
 	public Player getCurrentPlayer(){
 		return this.players.get(this.turnNumber % (this.players.size()));
+	}
+	public Player getPreviousPlayer(){
+		int index = this.turnNumber % (this.players.size()) - 1;
+		if(index < 0){
+			index = this.players.size() - 1;
+		}
+		return this.players.get(index);
 	}
 	/*Currently Broken.
 	public Player runAsciiGame(){
