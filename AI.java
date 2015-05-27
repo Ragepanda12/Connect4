@@ -51,7 +51,7 @@ public class AI extends Player{
 			//Sometimes defensive ai
 			Random rng = new Random();
 			int randomInt = rng.nextInt(20);
-			if(randomInt % 3 == 0){
+			if(randomInt % 2 == 0){
 				finalMove = searchForMove();
 			}
 			else{

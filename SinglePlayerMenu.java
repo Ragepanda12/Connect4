@@ -122,7 +122,7 @@ public class SinglePlayerMenu extends JPanel{
 						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
 						setVisible(false);
 						parentFrame.getGameScreen().setTurnText("0         ");
-						parentFrame.getGameScreen().remove(1);
+						parentFrame.getGameScreen().remove(0);
 						parentFrame.getGameScreen().setGame(game);
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();

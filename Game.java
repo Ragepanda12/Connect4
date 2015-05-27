@@ -36,19 +36,21 @@ public class Game{
 	public int getGameMode(){
 		return this.gameMode;
 	}
+	public boolean colIsNotFull(int column){
+		column -= 1;
+		return this.gameBoard.getBoard()[column][0].getState() == 0;
+	}
 	public ArrayList<Spot> setMove(Move m){
-
 		Player currentPlayer = this.players.get(this.turnNumber % this.players.size());
 		Spot s = this.gameBoard.addPiece(currentPlayer, m.getColumn() - 1);
 		ArrayList<Spot> win = null;
 		if(s != null){
 			currentPlayer.addMove(m);
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
-			this.remainingSpace --;
 		}
 		if(win.size() < this.gameBoard.getWinningNumber()){
-			System.out.println("Player adding turn");
 			this.turnNumber ++;
+			this.remainingSpace --;
 		}
 		return win;
 	}
@@ -58,28 +60,28 @@ public class Game{
 		ArrayList<Spot> win = new ArrayList<Spot>();
 		if(s != null){
 			currentPlayer.addMove(new Move(s.getX()));
-			System.out.println(win.size());
 			win = this.gameBoard.hasConnectFour(currentPlayer, s);
-			System.out.println(win.size());
 			this.remainingSpace --;
 		}
 		if(win.size() < this.gameBoard.getWinningNumber()){
-			System.out.println("Ai adding turn");
 			this.turnNumber ++;
 			win.add(s);
 		}
 		return win;
 	}
 	public int undoMove(){
+		this.gameBoard.printBoard();
 		if(this.turnNumber > 0){
-			this.turnNumber --;
 			int index = 0;
-			while(this.gameBoard.getBoard()[getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn()][index].getState() == 0){
+			ArrayList<Move> currentPlayerMoves = getCurrentPlayer().getMoves();
+			System.out.println(this.gameBoard.getBoard()[currentPlayerMoves.get(currentPlayerMoves.size() - 1).getColumn()][5].getState());
+			while((this.gameBoard.getBoard()[currentPlayerMoves.get(currentPlayerMoves.size() - 1).getColumn()][index].getState() == 0) && (index < this.gameBoard.getRows())){
 				index ++;
 			}
-			this.gameBoard.getBoard()[getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn()][index].changeState(0);
+			this.gameBoard.getBoard()[getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size() - 1).getColumn()][index].changeState(0);
 		}
-		return getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size()).getColumn();
+		this.turnNumber --;
+		return getCurrentPlayer().getMoves().get(getCurrentPlayer().getMoves().size() - 1).getColumn();
 	}
 	/*public void redoMove(){
 		

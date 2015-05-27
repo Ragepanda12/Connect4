@@ -54,7 +54,6 @@ public class Board {
 		return this.board[column];
 	}
 	public void printBoard(){
-		System.out.println("Printing board...");
 		int spot = 0;
 		int column = 0;
 
@@ -86,9 +85,6 @@ public class Board {
 		}
 		return toReturn;
 	}
-	//Only check for connect4 after someone has played a move.
-	//Return a list of the connect 4 generated, empty list if no connect 4
-	//Print out coordinates of winning
 	public ArrayList<Spot> hasConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		if(hasConnectFour.size() < this.goal){
@@ -104,18 +100,15 @@ public class Board {
 		if(hasConnectFour.size() < this.goal){
 			hasConnectFour = hasDiagUpRightConnectFour(p, s);
 		}
-		if(hasConnectFour.size() >= goal){
-			printWinning(hasConnectFour);
-		}
-		else{
+		if(hasConnectFour.size() < this.goal){
 			hasConnectFour.clear();
 		}
 		return hasConnectFour;
 	}
 	private ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int yPos = s.getY() - 3;
-		int toYPos = s.getY() + 3;
+		int yPos = s.getY() - this.goal - 1;
+		int toYPos = s.getY() + this.goal - 1;
 		boolean alreadyHasConnectFour = false;
 		if(yPos < 0){
 			yPos = 0;
@@ -127,7 +120,6 @@ public class Board {
 			if(this.board[s.getX()][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[s.getX()][yPos]);
 				if(hasConnectFour.size() >= this.goal){
-					System.out.println("Vert");
 					alreadyHasConnectFour = true;
 				}
 			}
@@ -145,8 +137,8 @@ public class Board {
 	}
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
-		int xPos = s.getX() - 3;
-		int toXPos = s.getX() + 3;
+		int xPos = s.getX() - this.goal - 1;
+		int toXPos = s.getX() + this.goal - 1;
 		boolean alreadyHasConnectFour = false;
 		if(xPos < 0){
 			xPos = 0;
@@ -158,7 +150,6 @@ public class Board {
 			if(this.board[xPos][s.getY()].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][s.getY()]);
 				if(hasConnectFour.size() >= this.goal){
-					System.out.println("Hori");
 					alreadyHasConnectFour = true;
 				}
 			}
@@ -178,15 +169,15 @@ public class Board {
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
 		int xPos = s.getX();
-		int three = 3;
+		int toCheck = this.goal - 1;
 		boolean alreadyHasConnectFour = false;
-		while(xPos > 0 && yPos > 0 && three > 0){
+		while(xPos > 0 && yPos > 0 && toCheck > 0){
 			xPos --;
 			yPos --;
-			three--;
+			toCheck --;
 		}
 		int checked = 0;
-		while(checked <= 7){
+		while(checked <= ((this.goal - 1) * 2 ) + 1){
 			if(this.board[xPos][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][yPos]);
 				if(hasConnectFour.size() >= this.goal){
@@ -221,15 +212,15 @@ public class Board {
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
 		int xPos = s.getX();
-		int three = 3;
+		int toCheck = this.goal - 1;
 		boolean alreadyHasConnectFour = false;
-		while(xPos > 0 && yPos < getRowsIndex() && three > 0){
+		while(xPos > 0 && yPos < getRowsIndex() && toCheck > 0){
 			xPos --;
 			yPos ++;
-			three--;
+			toCheck --;
 		}
 		int checked = 0;
-		while(checked <= 7){
+		while(checked <= ((this.goal - 1) * 2) + 1){
 			if(this.board[xPos][yPos].getState() == p.getColor()){
 				hasConnectFour.add(this.board[xPos][yPos]);
 				if(hasConnectFour.size() >= this.goal){

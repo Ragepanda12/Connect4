@@ -41,8 +41,12 @@ public class GameEnclosure extends JPanel{
 		AAButton undo = new AAButton("Undo");
 		undo.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				if(board.getGameState().getGameMode() == 1){
+					board.getGameState().undoMove();
+				}
 				board.getGameState().undoMove();
 				board.repaint();
+				incrementTurnText();
 			}
 		});
 		buttons.setLayout(new FlowLayout());
