@@ -128,8 +128,30 @@ public class GameScreen extends JPanel  implements MouseListener{
 							drawCol(this.getGraphics(), s.getX(), Color.BLUE);
 						}
 						this.gameWon = true;
-						//Player currentPlayer = this.gameState.getPreviousPlayer();
-						JOptionPane.showMessageDialog(this.parentFrame, "Eggs are not supposed to be green.");
+						Player currentPlayer = this.gameState.getCurrentPlayer();
+						String color = "";
+						if(currentPlayer.getColor() == 1){
+							color = "Red";
+						}
+						else if(currentPlayer.getColor()  == 2){
+							color = "Yellow";
+						}
+						else if(currentPlayer.getColor()  == 3){
+							color = "Green";
+						}
+						else if(currentPlayer.getColor()  == 4){
+							color = "Black";
+						}
+						else if(currentPlayer.getColor()  == 5){
+							color = "Cyan";
+						}
+						else if(currentPlayer.getColor()  == 6){
+							color = "Pink";
+						}
+						else if(currentPlayer.getColor()  == 7){
+							color = "Grey";
+						}
+						JOptionPane.showMessageDialog(this.parentFrame, "Player " + currentPlayer.getColor() + " (" + color + ") wins!");
 					}
 					if(this.gameWon != true){
 						if(this.gameState.getGameMode() == 1){
@@ -137,27 +159,19 @@ public class GameScreen extends JPanel  implements MouseListener{
 							if(winning.size() == 1){
 								cPos = winning.get(0).getX();
 								drawCol(this.getGraphics(), cPos, Color.BLUE);
-<<<<<<< HEAD
 								//System.out.println(cPos);
 							}
 							if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
->>>>>>> origin/master
 								for(Spot s : winning){
 									this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
 									drawCol(this.getGraphics(), s.getX(), Color.BLUE);
 								}
 								this.gameWon = true;
-<<<<<<< HEAD
-							}
-						}
-					}
-=======
 								JOptionPane.showMessageDialog(this.parentFrame, "The AI Player won!");
 							}
 						}
 					}
 					this.parentFrame.getGameScreen().incrementTurnText();
->>>>>>> origin/master
 				}
 			}
 		}
