@@ -18,10 +18,10 @@ public class AI extends Player{
 	private int level;
 
 
-	private static int MAX_COLS = 7;
-	private static int MAX_ROWS = 6;
+	private int MAX_COLS;
+	private int MAX_ROWS;
 
-	private static int GOAL = 4;
+	private int GOAL;
 
 	/**
 	 * Constructor for the AI Class.
@@ -33,6 +33,9 @@ public class AI extends Player{
 	public AI(int color, Board b, int level){
 		super(color);
 		this.b = b;
+		this.MAX_COLS = b.getColumns();
+		this.MAX_ROWS = b.getRows();
+		this.GOAL = b.getWinningNumber();
 		this.level = level;
 		//Init arraylist
 		ratings = new ArrayList<ArrayList<Integer>>();

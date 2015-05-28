@@ -250,7 +250,7 @@ public class MultiPlayerMenu extends JPanel{
 							JOptionPane.YES_NO_OPTION
 					);
 					if(agree == 0){
-						GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame, 0);
+						GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame.getGameScreen(), 0);
 						setVisible(false);
 						parentFrame.getGameScreen().remove(0);
 						parentFrame.getGameScreen().setGame(game);
@@ -261,7 +261,7 @@ public class MultiPlayerMenu extends JPanel{
 					}
 				}
 				else{	
-					GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame, 0);
+					GameScreen game = new GameScreen(inputColumns, inputRows, inputPlayers, winningNumber, 2, parentFrame.getGameScreen(), 0);
 					setVisible(false);
 					parentFrame.getGameScreen().setGame(game);
 					parentFrame.setContentPane(parentFrame.getGameScreen());

@@ -21,10 +21,10 @@ public class GameScreen extends JPanel  implements MouseListener{
 	private int players;
 	private int winning;
 	private Game gameState;
-	private GameUI parentFrame;
+	private GameEnclosure parentPanel;
 	private int xIncr, yIncr;
 	private int coinRadius;
-	private final int PADDING = 0;
+	private int PADDING;
 	private Move nextMove;
 	private boolean gameWon;
 	/**
@@ -38,17 +38,18 @@ public class GameScreen extends JPanel  implements MouseListener{
 	 * @param parent is the parent JFrame.
 	 * @param ai is the level of the AI to use if the single player mode is used.
 	 */
-	public GameScreen(int column, int row, int players, int winning, int gameMode, GameUI parent, int ai){
+	public GameScreen(int column, int row, int players, int winning, int gameMode, GameEnclosure parent, int ai){
 		super.addMouseListener(this);
 		this.gameWon = false;
 		this.numCols = column;
 		this.numRows = row;
 		this.players = players;
 		this.winning = winning;
+		this.PADDING = 0;
 		this.gameState = new Game(column, row, players, winning, gameMode, ai);
-		this.parentFrame = parent;
-		xIncr = (parent.getWidth())/numCols;
-		yIncr = ((parent.getHeight()*9/10)/(numRows + 1));
+		this.parentPanel = parent;
+		xIncr = (parent.getParentFrame().getWidth())/numCols;
+		yIncr = ((parent.getParentFrame().getHeight()*9/10)/(numRows + 1));
 		coinRadius = (int) (yIncr/1.05);
 		repaint();
 	}
@@ -170,7 +171,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 							else if(currentPlayer.getColor()  == 7){
 								color = "Grey";
 							}
-							JOptionPane.showMessageDialog(this.parentFrame, "Player " + currentPlayer.getColor() + " (" + color + ") won!");
+							JOptionPane.showMessageDialog(this.parentPanel.getParentFrame(), "Player " + currentPlayer.getColor() + " (" + color + ") won!");
 						}
 						if(this.gameWon != true){
 							if(this.gameState.getGameMode() == 1){
@@ -185,16 +186,16 @@ public class GameScreen extends JPanel  implements MouseListener{
 										drawCol(this.getGraphics(), s.getX(), new Color(31, 190, 214,255));
 									}
 									this.gameWon = true;
-									JOptionPane.showMessageDialog(this.parentFrame, "The AI Player won!");
+									JOptionPane.showMessageDialog(this.parentPanel.getParentFrame(), "The AI Player won!");
 								}
 							}
 						}
-						this.parentFrame.getGameScreen().incrementTurnText();
+						this.parentPanel.getParentFrame().getGameScreen().incrementTurnText();
 					}
 					if(this.getGameState().boardIsFull()){
-						JOptionPane.showMessageDialog(this.parentFrame, "Game Draw!");
+						JOptionPane.showMessageDialog(this.parentPanel.getParentFrame(), "Game Draw!");
 					}
-					this.parentFrame.getGameScreen().incrementTurnText();
+					this.parentPanel.getParentFrame().getGameScreen().incrementTurnText();
 				}
 			}
 		}

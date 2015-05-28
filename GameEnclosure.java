@@ -110,4 +110,11 @@ public class GameEnclosure extends JPanel{
 		this.add(board, 0);
 		this.parentFrame.revalidate();
 	}
+	/**
+	 * Getter function for parent JFrame.
+	 * @return the parent JFrame object.
+	 */
+	public GameUI getParentFrame(){
+		return this.parentFrame;
+	}
 }

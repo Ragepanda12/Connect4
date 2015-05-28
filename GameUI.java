@@ -21,19 +21,19 @@ import javax.swing.SwingUtilities;
  */
 
 public class GameUI extends JFrame{
-	private final int WIDTH = 800;
-	private final int HEIGHT = WIDTH / 16 * 9;
-	private final Dimension gameDimensions = new Dimension(WIDTH, HEIGHT);
-	private final String TITLE = "Connect 4";
+	private int WIDTH;
+	private int HEIGHT;
+	private Dimension gameDimensions;
+	private String TITLE;
 	private Graphics g;
 	private SinglePlayerMenu single;
 	private MultiPlayerMenu multi;
 	private MainMenu mainMenu;
 	private GameEnclosure game;
-	private int defaultRow = 6;
-	private int defaultCol = 7;
-	private int defaultWin = 4;
-	private int defaultPlayer = 2;
+	private int defaultRow;
+	private int defaultCol;
+	private int defaultWin;
+	private int defaultPlayer;
 	
 	public static void main(String[] args){
 	    SwingUtilities.invokeLater(new Runnable() {
@@ -47,6 +47,14 @@ public class GameUI extends JFrame{
 	 */
 	public GameUI() {
 		this.setLayout(new BorderLayout());
+		this.WIDTH = 800;
+		this.HEIGHT = this.WIDTH / 16 * 9;
+		this.gameDimensions = new Dimension(WIDTH, HEIGHT);
+		this.TITLE = "Connect 4";
+		this.defaultRow = 6;
+		this.defaultCol = 7;
+		this.defaultWin = 4;
+		this.defaultPlayer = 2;
 		init();
 	}
 	/**
@@ -123,6 +131,7 @@ public class GameUI extends JFrame{
 		this.setVisible(true);
 		this.single.setVisible(false);
 		this.multi.setVisible(false);
+		this.game.setVisible(false);
 		this.setContentPane(this.mainMenu);
 		this.mainMenu.setVisible(true);
 	}

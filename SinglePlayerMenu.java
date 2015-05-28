@@ -127,7 +127,7 @@ public class SinglePlayerMenu extends JPanel{
 					);
 					if(agree == 0){
 
-						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
+						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame.getGameScreen(), ai);
 						setVisible(false);
 						parentFrame.getGameScreen().remove(0);
 						parentFrame.getGameScreen().setGame(game);
@@ -139,7 +139,7 @@ public class SinglePlayerMenu extends JPanel{
 					}
 				}
 				else{	
-					GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
+					GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame.getGameScreen(), ai);
 					setVisible(false);
 					parentFrame.getGameScreen().setGame(game);
 					parentFrame.setContentPane(parentFrame.getGameScreen());
