@@ -16,11 +16,8 @@ public class AI extends Player{
 	private Board b;
 	private ArrayList<ArrayList<Integer>> ratings;
 	private int level;
-
-
 	private int MAX_COLS;
 	private int MAX_ROWS;
-
 	private int GOAL;
 
 	/**
