@@ -5,7 +5,7 @@ import java.awt.RenderingHints;
 import javax.swing.JLabel;
 /**
  * Anti-Aliased extension of JLabels.
- * @author Mendel/Lance/Carmen/Aaron
+ * @author Mendel
  *
  */
 

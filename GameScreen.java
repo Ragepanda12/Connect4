@@ -160,6 +160,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 					if(this.getGameState().boardIsFull()){
 						JOptionPane.showMessageDialog(this.parentFrame, "Game Draw!");
 					}
+					this.parentFrame.getGameScreen().incrementTurnText();
 				}
 			}
 		}

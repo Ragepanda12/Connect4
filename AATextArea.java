@@ -6,7 +6,7 @@ import javax.swing.JTextArea;
 
 /**
  * Anti-Aliased extension of JTextAreas.
- * @author Mendel/Lance/Carmen/Aaron
+ * @author Mendel
  *
  */
 public class AATextArea extends JTextArea{  

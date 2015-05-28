@@ -74,6 +74,7 @@ public class Game{
 		if(this.turnNumber > 0){
 			int index = 0;
 			ArrayList<Move> currentPlayerMoves = getCurrentPlayer().getMoves();
+			//System.out.println(this.gameBoard.getBoard()[currentPlayerMoves.get(currentPlayerMoves.size() - 1).getColumn()][5].getState());
 			System.out.println(this.gameBoard.getBoard()[currentPlayerMoves.get(currentPlayerMoves.size() - 1).getColumn()][5].getState());
 			while((this.gameBoard.getBoard()[currentPlayerMoves.get(currentPlayerMoves.size() - 1).getColumn()][index].getState() == 0) && (index < this.gameBoard.getRows())){
 				index ++;

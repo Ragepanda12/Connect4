@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Backend representation of board state in Connect Four.
- * @author Mendel/Lance/Carmen/Aaron
+ * @author Mendel
  *
  */
 public class Board {
@@ -75,6 +75,9 @@ public class Board {
 	public int getColumnsIndex(){
 		return this.columns - 1;
 	}
+	/**
+	 * Prints out the board in an ascii state.
+	 */
 	public void printBoard(){
 		int spot = 0;
 		int column = 0;
@@ -89,11 +92,22 @@ public class Board {
 			spot ++;
 		}
 	}
+	/**
+	 * Prints out the x and y coordinates of an input list
+	 * To be called when a winning list was found
+	 * @param win is a list of spots containing a winning combination
+	 */
 	public void printWinning(ArrayList<Spot> win){
 		for(Spot s : win){
 			System.out.println(s.getX() + " " + s.getY());
 		}
 	}
+	/**
+	 * Adds a piece to the board.
+	 * @param p is the player who is adding a piece to the board
+	 * @param column is the column in which the piece is being added
+	 * @return the spot in which the piece was placed.
+	 */
 	public Spot addPiece(Player p, int column){
 		Spot toReturn = null;
 		int spot = getRowsIndex();
@@ -107,6 +121,13 @@ public class Board {
 		}
 		return toReturn;
 	}
+	/**
+	 * hasConnectFour checks if a player has a winning combination spanning from an input spot.
+	 * Usually called immediately after a player has played a piece to check if their input has won.
+	 * @param p is the player who is being checked for being the winner
+	 * @param s is the spot from which the winning checking will begin.
+	 * @return a list of the winning combination if there is a win, otherwise null.
+	 */
 	public ArrayList<Spot> hasConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		if(hasConnectFour.size() < this.goal){
@@ -127,6 +148,12 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	/**
+	 * A private function called by hasConnectFour to check for vertical wins.
+	 * @param p is the player who is being checked for being the winner
+	 * @param s is the spot from which the winning checking will begin.
+	 * @return a list of the winning combination if there is a win, otherwise null.
+	 */
 	private ArrayList<Spot> hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY() - this.goal - 1;
@@ -157,6 +184,12 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	/**
+	 * A private function called by hasConnectFour to check for horizontal wins.
+	 * @param p is the player who is being checked for being the winner
+	 * @param s is the spot from which the winning checking will begin.
+	 * @return a list of the winning combination if there is a win, otherwise null.
+	 */
 	private ArrayList<Spot> hasHoriConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int xPos = s.getX() - this.goal - 1;
@@ -187,6 +220,12 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	/**
+	 * A private function called by hasConnectFour to check for descending towards the right wins.
+	 * @param p is the player who is being checked for being the winner
+	 * @param s is the spot from which the winning checking will begin.
+	 * @return a list of the winning combination if there is a win, otherwise null.
+	 */
 	private ArrayList<Spot> hasDiagDownRightConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
@@ -230,6 +269,12 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	/**
+	 * A private function called by hasConnectFour to check for rising rightwards wins.
+	 * @param p is the player who is being checked for being the winner
+	 * @param s is the spot from which the winning checking will begin.
+	 * @return a list of the winning combination if there is a win, otherwise null.
+	 */
 	private ArrayList<Spot> hasDiagUpRightConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
 		int yPos = s.getY();
@@ -273,6 +318,10 @@ public class Board {
 		}
 		return hasConnectFour;
 	}
+	/**
+	 * Getter function for the number of connected pieces required to win.
+	 * @return the number of connected pieces required to win as an int.
+	 */
 	public int getWinningNumber(){
 		return this.goal;
 	}

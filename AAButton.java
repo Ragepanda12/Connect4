@@ -5,7 +5,7 @@ import java.awt.RenderingHints;
 import javax.swing.JButton;
 /**
  * Anti-Aliased extension of JButtons.
- * @author Mendel/Lance/Carmen/Aaron
+ * @author Mendel
  *
  */
 
