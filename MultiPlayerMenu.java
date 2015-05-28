@@ -15,13 +15,21 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
-
+/**
+ * Multiplayer options screen contained in a JPanel.
+ * @author Mendel
+ *
+ */
 public class MultiPlayerMenu extends JPanel{
 	private GameUI parentFrame;
 	private int inputRows;
 	private int inputColumns;
 	private int inputPlayers;
 	private int winningNumber;
+	/**
+	 * Constructor for the MultiplayerMenu Class.
+	 * @param parent is the parent JFrame of the class.
+	 */
 	public MultiPlayerMenu(GameUI parent){
 		this.parentFrame = parent;
 		inputRows = this.parentFrame.getDefaultRow();
@@ -246,6 +254,7 @@ public class MultiPlayerMenu extends JPanel{
 						setVisible(false);
 						parentFrame.getGameScreen().remove(0);
 						parentFrame.getGameScreen().setGame(game);
+						parentFrame.getGameScreen().incrementTurnText();
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();
 						parentFrame.getGameScreen().setVisible(true);

@@ -5,7 +5,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
+/**
+ * AI Subclass of Player
+ * @author Carmen and Aaron
+ *
+ */
 
 public class AI extends Player{
 	//Fields
@@ -19,7 +23,12 @@ public class AI extends Player{
 
 	private static int GOAL = 4;
 
-
+	/**
+	 * Constructor for the AI Class.
+	 * @param color is the color/id of the AI player.
+	 * @param b is the backend board object, used to analyse what position to play a move.
+	 * @param level determines what level of AI strategy to use.
+	 */
 	//Constructor
 	public AI(int color, Board b, int level){
 		super(color);
@@ -36,13 +45,17 @@ public class AI extends Player{
 
 	//Method
 	@Override
+	/**
+	 * getMove returns a Move which is determined by the AI.
+	 * This is dependent on the level of the AI.
+	 * If the AI has a level of 1, it is a random AI
+	 * If the AI has a level of 2, it will sometimes play defensively, and sometimes randomly.
+	 * If the AI has a level of 3, it will always play defensively.
+	 * @return the Move object of the move to be played.
+	 */
 	public Move getMove(){
-		//System.out.println("last move is "+scanner.next());
-		//int requestedMove = Integer.parseInt(scanner.next());
-
 		int finalMove = 0;
-		//Select strategy
-		int strategy = this.level; //Keep this at one for now
+		int strategy = this.level;
 
 		if (strategy == 1) {
 			//random ai
@@ -69,7 +82,10 @@ public class AI extends Player{
 
 	}
 
-
+	/**
+	 * Calculates the best move to take, and returns the column in which to put a new piece.
+	 * @return the column in which the AI wants to put a new piece.
+	 */
 	private int searchForMove()  {
 
 		/* Defensive Strategy
@@ -142,7 +158,10 @@ public class AI extends Player{
 	}
 
 
-
+	/**
+	 * Get the best column in which to put a new piece into.
+	 * @return the column with the highest score where score determines the best move to make.
+	 */
 	/* Returns a column with the highest score (which will result in the best move) */
 	private int computeBestMove() {
 
@@ -162,7 +181,11 @@ public class AI extends Player{
 
 		return chosenColumn;
 	}
-
+	/**
+	 * Returns the highest value from a given ArrayList.
+	 * @param list is a list of Integer Objects.
+	 * @return the largest value from the list of input integers.
+	 */
 	/* Returns the highest value from the ArrayList */
 	/* Could use priority queue, but this is simpler */
 	private int getHighestValue(ArrayList<Integer> list) {
@@ -175,7 +198,11 @@ public class AI extends Player{
 		return result;
 	}
 
-
+	/**
+	 * Finds the first available row for a specified column.
+	 * @param column is the column to search for available space.
+	 * @return the Y Coordinate of the first available space in the specified column.
+	 */
 	/* Finds first available row for a specified column (from top) */
 	private int findFirstAvailableRow(int column) {
 		int result = -1; //Searching from the top of board
@@ -205,9 +232,18 @@ public class AI extends Player{
 
 	}
 
-
+	/**
+	 * Adds up the ratings of the rows in a column to determine which column has the highest score.
+	 * @param numHorLeft is the score of the column given that the AI searches horizontally left.
+	 * @param numHorRight is the score of the column given that the AI searched horizontally right.
+	 * @param numVert is the score of the column given that the AI searches vertically.
+	 * @param numBottomLeft is the score of the column given that the AI searches diagonally down left.
+	 * @param numBottomRight is the score of the column given that the AI searches diagonally down right.
+	 * @param numTopLeft is the score of the column given that the AI searches diagonally up left.
+	 * @param numTopRight is the score of the column given that the AI searches diagonally top right.
+	 * @param column is the column that the AI is thinking about putting a piece in.
+	 */
 	/* Adds a rating for a particular column */
-	/* At this point only does horizontal/vertical */
 	private void addRating(int numHorLeft, int numHorRight, int numVert, int numBottomLeft, int numBottomRight, int numTopLeft, int numTopRight, int column) {
 		//Add Ratings
 		int rating;
@@ -232,7 +268,12 @@ public class AI extends Player{
 	}
 
 
-
+	/**
+	 * Given a player and a position, finds how many vertical pieces in a row there are of the given player.
+	 * @param p is the player to be checked.
+	 * @param s is the Spot which determines which column to check.
+	 * @return the number of pieces that a player has stacked vertically in a given column.
+	 */
 	/* Given player & current position determines how many vert */
 	private int hasVertConnectFour(Player p, Spot s){
 		ArrayList<Spot> hasConnectFour = new ArrayList<Spot>();
@@ -242,8 +283,8 @@ public class AI extends Player{
 		if(yPos < 0){
 			yPos = 0;
 		}
-		if(toYPos > getRowsIndex()){
-			toYPos = getRowsIndex();
+		if(toYPos > this.b.getRowsIndex()){
+			toYPos = this.b.getRowsIndex();
 		}
 		while(yPos <= toYPos){
 			if(this.b.getBoard()[s.getX()][yPos].getState() == p.getColor()){
@@ -264,7 +305,12 @@ public class AI extends Player{
 		return hasConnectFour.size();
 	}
 
-
+	/**
+	 * Checks for the best move to make, horizontally towards the left direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves horizontally towards the left direction */
 	/* Need to work backwards from current position */
 	private int horLeft(Player p, Spot s){
@@ -291,7 +337,12 @@ public class AI extends Player{
 
 		return score;
 	}
-
+	/**
+	 * Checks for the best move to make, horizontally towards the right direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves horizontally towards the right direction */
 	private int horRight(Player p, Spot s){
 		int score = 0;
@@ -300,7 +351,7 @@ public class AI extends Player{
 
 		//Start at xPos
 		//Then move one left
-		while (xPos < getColumnsIndex()) {
+		while (xPos < this.b.getColumnsIndex()) {
 			if (yPos < 0) {
 				return score;
 			}
@@ -316,7 +367,12 @@ public class AI extends Player{
 
 		return score;
 	}
-
+	/**
+	 * Checks for the best move to make, diagonally towards the bottom left direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves diagonal towards the bottom left direction */
 	private int topLeft(Player p, Spot s){
 		int score = 0;
@@ -325,7 +381,7 @@ public class AI extends Player{
 		
 		//Start at xPos
 		//Then move one left
-		while (xPos < getColumnsIndex() && yPos <getRowsIndex()) {
+		while (xPos < this.b.getColumnsIndex() && yPos < this.b.getRowsIndex()) {
 			if((xPos < 0)|| (yPos < 0)){
 				return score;
 			}
@@ -347,6 +403,12 @@ public class AI extends Player{
 		return score;
 	}
 
+	/**
+	 * Checks for the best move to make, diagonally towards the top left direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves diagonal towards the top left direction */
 	private int bottomLeft(Player p, Spot s){
 		int score = 0;
@@ -354,7 +416,7 @@ public class AI extends Player{
 		int yPos = s.getY() + 1;
 		//Start at xPos
 		//Then move one left
-		while (xPos < getColumnsIndex() && yPos <getRowsIndex()) {
+		while (xPos < this.b.getColumnsIndex() && yPos < this.b.getRowsIndex()) {
 			if((xPos < 0)||(yPos > 5)){
 				return score;
 			}
@@ -376,7 +438,12 @@ public class AI extends Player{
 
 		return score;
 	}
-
+	/**
+	 * Checks for the best move to make, diagonally towards the bottom right direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves diagonal towards the bottom right direction */
 	private int topRight(Player p, Spot s){
 		int score = 0;
@@ -384,7 +451,7 @@ public class AI extends Player{
 		int yPos = s.getY() - 1;
 		//Start at xPos
 		//Then move one left
-		while (xPos < getColumnsIndex() && yPos <getRowsIndex()) {
+		while (xPos < this.b.getColumnsIndex() && yPos < this.b.getRowsIndex()) {
 			if((xPos > 6)||(yPos < 0)){
 				return score;
 			}
@@ -405,7 +472,12 @@ public class AI extends Player{
 		}
 		return score;
 	}
-
+	/**
+	 * Checks for the best move to make, diagonally towards the top right direction.
+	 * @param p is the player to be defended against.
+	 * @param s is the spot from which the searching begins.
+	 * @return the score, i.e how likely the AI will place a Move in the area.
+	 */
 	/* Check for moves diagonal towards the top right direction */
 	private int bottomRight(Player p, Spot s){
 		int score = 0;
@@ -413,7 +485,7 @@ public class AI extends Player{
 		int yPos = s.getY() + 1;
 		//Start at xPos
 		//Then move one left
-		while (xPos < getColumnsIndex() && yPos <getRowsIndex()) {
+		while (xPos < this.b.getColumnsIndex() && yPos < this.b.getRowsIndex()) {
 
 			//If a red piece is found
 			if(this.b.getBoard()[xPos][yPos].getState() == (p.getColor())){
@@ -437,7 +509,10 @@ public class AI extends Player{
 		}
 		return score;
 	}
-	
+	/**
+	 * Random function to return an int between 0 and 6.
+	 * @return a random integer between 0 and 6.
+	 */
 	private int random(){
 		//returns column number
 		Random rand = new Random(System.currentTimeMillis());
@@ -447,26 +522,12 @@ public class AI extends Player{
 		int x = -1;
 		while(x == -1){
 			i = rand.nextInt() % n;
-			if(i > 0 && i < this.MAX_COLS){
+			if(i >= 0 && i < this.MAX_COLS){
 				x = findFirstAvailableRow(i);
 			}
 		}
 		return i;
 		
 	}
-
-	private int getColumnsIndex() {
-		return MAX_COLS - 1;
-	}
-
-	private int getRowsIndex() {
-		return MAX_ROWS - 1;
-	}
-
-
-
-
-
-
 
 }

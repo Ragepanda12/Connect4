@@ -12,13 +12,21 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-
+/**
+ * JPanel which contains the main menu screen.
+ * @author Mendel
+ *
+ */
 public class MainMenu extends JPanel{
 	//fields
 	private final GameUI parentFrame;
 	private JPanel bottomHalf;
 	private boolean hasResume;
 	//Constructor
+	/**
+	 * Constructor for the MainMenu class.
+	 * @param parent is the JFrame in which this JPanel is contained.
+	 */
 	public MainMenu(GameUI parent){
 		this.parentFrame = parent;
 		this.hasResume = false;
@@ -72,6 +80,11 @@ public class MainMenu extends JPanel{
 		this.add(bottomHalf);
 		this.setVisible(false);
 	}
+	/**
+	 * Adds a new button to the Main menu screen.
+	 * Intended for use for adding in the resume button when "Back to main menu" is pressed in a game.
+	 * @param n is a button to be added to the top of the bottom half of the main menu screen.
+	 */
 	public void addButton(AAButton n){
 		if(this.hasResume == false){
 			n.setAlignmentX(Component.CENTER_ALIGNMENT);

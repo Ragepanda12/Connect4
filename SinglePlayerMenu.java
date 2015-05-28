@@ -14,9 +14,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 
-
+/**
+ * JPanel implementation of the single player options menu.
+ * @author Mendel
+ *
+ */
 public class SinglePlayerMenu extends JPanel{
 	private GameUI parentFrame;
+	/**
+	 * Constructor for the single player options menu/ SinglePlayerMenu class.
+	 * @param parent is the parent JFrame of the JPanel.
+	 */
 	public SinglePlayerMenu(GameUI parent){
 		this.parentFrame = parent;
 		Border empty = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -121,9 +129,9 @@ public class SinglePlayerMenu extends JPanel{
 
 						GameScreen game = new GameScreen(parentFrame.getDefaultCol(), parentFrame.getDefaultRow(), parentFrame.getDefaultPlayer(), parentFrame.getDefaultWin(), 1, parentFrame, ai);
 						setVisible(false);
-						parentFrame.getGameScreen().setTurnText("0         ");
 						parentFrame.getGameScreen().remove(0);
 						parentFrame.getGameScreen().setGame(game);
+						parentFrame.getGameScreen().incrementTurnText();
 						parentFrame.setContentPane(parentFrame.getGameScreen());
 						parentFrame.pack();
 						parentFrame.getGameScreen().setVisible(true);
