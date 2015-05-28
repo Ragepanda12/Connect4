@@ -56,7 +56,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 		int xPos = PADDING + (index * xIncr);
 		g2d.fillRect(xPos, 0, xIncr, getHeight());
 		Spot[][] board = this.gameState.getGameBoard().getBoard();
-		for(int j =0,yPos = this.yIncr; j< numRows;j++){
+		for(int j =0,yPos = this.yIncr/2; j< numRows;j++){
 			if(board[index][j].getState() == 0){
 				g2d.setColor(Color.WHITE);
 			}
@@ -90,23 +90,7 @@ public class GameScreen extends JPanel  implements MouseListener{
 			yPos += yIncr;
 		}
 	}
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -118,46 +102,64 @@ public class GameScreen extends JPanel  implements MouseListener{
 				xPos -= xIncr;
 			}
 			if(cPos > 0 && cPos <= numCols){
-				ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
-				if(winning != null){
-					drawCol(this.getGraphics(), cPos -1, Color.BLUE);
-				
-					if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
-						for(Spot s : winning){
-							this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
-							drawCol(this.getGraphics(), s.getX(), Color.BLUE);
-						}
-						this.gameWon = true;
-						//Player currentPlayer = this.gameState.getPreviousPlayer();
-						JOptionPane.showMessageDialog(this.parentFrame, "Eggs are not supposed to be green.");
-					}
-					if(this.gameWon != true){
-						if(this.gameState.getGameMode() == 1){
-							winning = this.gameState.setAIMove();
-							if(winning.size() == 1){
-								cPos = winning.get(0).getX();
-								drawCol(this.getGraphics(), cPos, Color.BLUE);
-<<<<<<< HEAD
-								//System.out.println(cPos);
+				if(this.gameState.colIsNotFull(cPos)){
+					ArrayList<Spot> winning = this.gameState.setMove(new Move(cPos));
+					if(winning != null){
+						drawCol(this.getGraphics(), cPos -1, Color.BLUE);
+					
+						if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
+							for(Spot s : winning){
+								this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+								drawCol(this.getGraphics(), s.getX(), Color.BLUE);
 							}
-							if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
->>>>>>> origin/master
-								for(Spot s : winning){
-									this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
-									drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+							this.gameWon = true;
+							Player currentPlayer = this.gameState.getCurrentPlayer();
+							String color = "";
+							if(currentPlayer.getColor() == 1){
+								color = "Red";
+							}
+							else if(currentPlayer.getColor()  == 2){
+								color = "Yellow";
+							}
+							else if(currentPlayer.getColor()  == 3){
+								color = "Green";
+							}
+							else if(currentPlayer.getColor()  == 4){
+								color = "Black";
+							}
+							else if(currentPlayer.getColor()  == 5){
+								color = "Cyan";
+							}
+							else if(currentPlayer.getColor()  == 6){
+								color = "Pink";
+							}
+							else if(currentPlayer.getColor()  == 7){
+								color = "Grey";
+							}
+							JOptionPane.showMessageDialog(this.parentFrame, "Player " + currentPlayer.getColor() + " (" + color + ") won!");
+						}
+						if(this.gameWon != true){
+							if(this.gameState.getGameMode() == 1){
+								winning = this.gameState.setAIMove();
+								if(winning.size() == 1){
+									cPos = winning.get(0).getX();
+									drawCol(this.getGraphics(), cPos, Color.BLUE);
 								}
-								this.gameWon = true;
-<<<<<<< HEAD
+								if(winning != null && winning.size() >= this.gameState.getGameBoard().getWinningNumber()){
+									for(Spot s : winning){
+										this.gameState.getGameBoard().getBoard()[s.getX()][s.getY()].changeState(-1);
+										drawCol(this.getGraphics(), s.getX(), Color.BLUE);
+									}
+									this.gameWon = true;
+									JOptionPane.showMessageDialog(this.parentFrame, "The AI Player won!");
+								}
 							}
 						}
+						this.parentFrame.getGameScreen().incrementTurnText();
 					}
-=======
-								JOptionPane.showMessageDialog(this.parentFrame, "The AI Player won!");
-							}
-						}
+					if(this.getGameState().boardIsFull()){
+						JOptionPane.showMessageDialog(this.parentFrame, "Game Draw!");
 					}
-					this.parentFrame.getGameScreen().incrementTurnText();
->>>>>>> origin/master
 				}
 			}
 		}
@@ -167,8 +169,15 @@ public class GameScreen extends JPanel  implements MouseListener{
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e) {	
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 }
